@@ -2,91 +2,78 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>UGC NET Paper 1 - CBT Simulator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>UGC NET CBT Simulator</title>
     
-    <!-- External Libraries -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
-    
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: #f3f4f6; 
-            overflow: hidden; /* Prevent body scrolling, handle internally */
-            margin: 0; 
+        html, body {
+            margin: 0;
             padding: 0;
-            touch-action: manipulation; /* Improve touch responsiveness */
+            width: 100%;
+            height: 100%;
+            overflow: hidden; 
+            background-color: #f9fafb;
+            touch-action: pan-x pan-y;
         }
-        
-        .cbt-shadow { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        
-        /* CBT Palette Shapes and Colors */
-        .q-not-visited { background-color: #e5e7eb; color: #374151; border: 1px solid #d1d5db; }
-        .q-not-answered { background-color: #ef4444; color: white; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; }
-        .q-answered { background-color: #22c55e; color: white; border-top-left-radius: 12px; border-top-right-radius: 12px; }
-        .q-marked { background-color: #8b5cf6; color: white; border-radius: 50%; }
-        .q-answered-marked { background-color: #8b5cf6; color: white; border-radius: 50%; position: relative; }
-        .q-answered-marked::after { 
-            content: ''; 
-            position: absolute; 
-            bottom: 2px; 
-            right: 2px; 
-            width: 8px; 
-            height: 8px; 
-            background-color: #22c55e; 
-            border-radius: 50%; 
+
+        #root {
+            width: 100%;
+            height: 100%;
         }
-        
-        /* Mobile specific adjustments for responsiveness */
+
+        .app-wrapper {
+            height: 100vh; /* Fallback for older browsers */
+            height: 100dvh; /* Dynamic viewport height for modern mobile browsers */
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            overflow: hidden;
+        }
+
         @media (max-width: 768px) {
-            .mobile-hide { display: none; }
-            .mobile-full-width { 
-                width: 100%; 
-                margin-left: 0; 
-                margin-right: 0; 
-                border-radius: 0; 
-                border-left: none; 
-                border-right: none;
-            }
+            .mobile-hide { display: none !important; }
             .mobile-palette-container { 
                 position: fixed; 
                 bottom: 0; 
                 left: 0; 
                 right: 0; 
-                height: 65vh; /* Optimal height for mobile palette */
+                top: auto; 
+                height: 85vh; 
+                border-radius: 20px 20px 0 0; 
+                box-shadow: 0 -10px 25px rgba(0,0,0,0.3); 
                 z-index: 50; 
-                background: white;
-                transform: translateY(100%);
-                transition: transform 0.3s ease-in-out;
-                box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+                transform: translateY(100%); 
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 display: flex;
                 flex-direction: column;
-                border-top-left-radius: 20px;
-                border-top-right-radius: 20px;
             }
-            .mobile-palette-open { transform: translateY(0); }
-            .mobile-backdrop {
-                position: fixed;
-                inset: 0;
-                background: rgba(0,0,0,0.6);
-                z-index: 40;
-                display: none;
-                backdrop-filter: blur(2px);
-            }
-            .mobile-backdrop-open { display: block; }
-            
-            /* Enhanced radio button touch targets for mobile */
-            input[type="radio"] {
-                width: 20px;
-                height: 20px;
-            }
+            .mobile-palette-container.open { transform: translateY(0); }
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
+
+        input[type="radio"] {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+        
+        .no-select {
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .safe-area-pb {
+            /* Ensures bottom padding for devices with home indicators (e.g. iPhone) */
+            padding-bottom: max(1rem, env(safe-area-inset-bottom));
         }
     </style>
 </head>
@@ -94,92 +81,88 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        // Full 50 Question Teaching Aptitude Dataset
-        const QUIZ_DATA = [
-            { id: 1, unit: "Teaching Aptitude", question: "Which level of teaching is primarily focused on the rote memorization of facts?", options: ["Memory Level", "Understanding Level", "Reflective Level", "Autonomous Development Level"], correctAnswer: 0, explanation: "Memory level of teaching relies heavily on the rote memorization of facts and information without necessarily requiring deep understanding." },
-            { id: 2, unit: "Teaching Aptitude", question: "Who is considered the main proponent of the Understanding Level of teaching?", options: ["Herbart", "Morrison", "Hunt", "Skinner"], correctAnswer: 1, explanation: "Morrison is the main proponent of the Understanding Level of teaching." },
-            { id: 3, unit: "Teaching Aptitude", question: "Which of the following describes the Reflective Level of teaching?", options: ["It is teacher-centric.", "It relies solely on memorization.", "It adopts a problem-centric approach.", "It involves classical conditioning."], correctAnswer: 2, explanation: "The Reflective Level is the highest level of teaching and involves a problem-centric approach where students use critical thinking." },
-            { id: 4, unit: "Teaching Aptitude", question: "According to the maxims of teaching, instruction should generally proceed from:", options: ["Complex to simple", "Unknown to known", "Simple to complex", "Abstract to concrete"], correctAnswer: 2, explanation: "Teaching should proceed from simple concepts to more complex ones to facilitate better understanding." },
-            { id: 5, unit: "Teaching Aptitude", question: "Which learning theory emphasizes that learners construct knowledge through active engagement and interaction with their environment?", options: ["Behaviorism", "Constructivism", "Cognitivism", "Humanism"], correctAnswer: 1, explanation: "Constructivism is based on the idea that learners actively build or construct their own knowledge based on experiences." },
-            { id: 6, unit: "Teaching Aptitude", question: "The concept of the Zone of Proximal Development (ZPD) was introduced by:", options: ["Jean Piaget", "Lev Vygotsky", "B.F. Skinner", "Albert Bandura"], correctAnswer: 1, explanation: "Lev Vygotsky introduced the Zone of Proximal Development in his Sociocultural Theory." },
-            { id: 7, unit: "Teaching Aptitude", question: "In Bloom's Taxonomy, which domain deals specifically with the development of physical skills and motor abilities?", options: ["Cognitive Domain", "Affective Domain", "Psychomotor Domain", "Interpersonal Domain"], correctAnswer: 2, explanation: "The Psychomotor Domain focuses on physical skills, coordination, and motor abilities." },
-            { id: 8, unit: "Teaching Aptitude", question: "According to Edgar Dale's Cone of Experience, which activity generally results in the highest retention rate (90%)?", options: ["Reading", "Watching a demonstration", "Participating in a discussion", "Going through a real experience"], correctAnswer: 3, explanation: "Direct, purposeful experiences (doing the real thing) yield the highest retention rate." },
-            { id: 9, unit: "Teaching Aptitude", question: "Which learning disorder primarily affects a person's mathematical abilities and grasp of numerical concepts?", options: ["Dyslexia", "Dysgraphia", "Dyscalculia", "Dyspraxia"], correctAnswer: 2, explanation: "Dyscalculia is a specific learning disability that affects a person's ability to understand numbers and learn math facts." },
-            { id: 10, unit: "Teaching Aptitude", question: "Which of the following is considered an informal learning setting according to UNESCO classifications?", options: ["Schools", "Universities", "Family and Home", "Vocational Training Centers"], correctAnswer: 2, explanation: "Learning that occurs in daily life, such as within the family and home, is considered informal learning." },
-            { id: 11, unit: "Teaching Aptitude", question: "Which of UNESCO's four pillars of education emphasizes the development of social skills and mutual respect among diverse individuals?", options: ["Learning to Know", "Learning to Do", "Learning to Live Together", "Learning to Be"], correctAnswer: 2, explanation: "Learning to live together involves developing an understanding of others and an appreciation of interdependence." },
-            { id: 12, unit: "Teaching Aptitude", question: "Which characteristic is typically associated with adult learners (Andragogy) rather than adolescent learners?", options: ["Dependence on the teacher", "Subject-centered orientation", "Goal-oriented learning", "Extrinsic motivation"], correctAnswer: 2, explanation: "Adult learners are typically self-directed and goal-oriented." },
-            { id: 13, unit: "Teaching Aptitude", question: "Which of the following is a non-projected instructional facility?", options: ["Overhead Projector", "Flannel Board", "Epidiascope", "Film Strip"], correctAnswer: 1, explanation: "A Flannel Board is a non-projected display board." },
-            { id: 14, unit: "Teaching Aptitude", question: "Which teaching method is primarily characterized as teacher-centered?", options: ["Heuristic Method", "Project Method", "Lecture Method", "Problem-Solving Method"], correctAnswer: 2, explanation: "The lecture method is a traditional, teacher-centered approach where the teacher is the primary source of information." },
-            { id: 15, unit: "Teaching Aptitude", question: "Which teaching method involves a group of experts discussing a topic in front of an audience?", options: ["Symposium", "Panel Discussion", "Seminar", "Tutorial"], correctAnswer: 1, explanation: "A panel discussion involves a small group of experts discussing a specific topic in front of an audience." },
-            { id: 16, unit: "Teaching Aptitude", question: "What is the primary characteristic of Programmed Instruction?", options: ["It relies heavily on group work.", "It involves a lot of unstructured play.", "It presents material in a sequenced and structured manner.", "It is only used for physical education."], correctAnswer: 2, explanation: "Programmed instruction presents information in small, sequenced steps with immediate feedback." },
-            { id: 17, unit: "Teaching Aptitude", question: "What does SWAYAM stand for?", options: ["Study Webs of Active-Learning for Young Aspiring Minds", "Study Work for Active Youth and Minds", "Student Web of Active Youth and Minds", "Study Webs of Academic Youth and Minds"], correctAnswer: 0, explanation: "SWAYAM stands for Study Webs of Active-Learning for Young Aspiring Minds." },
-            { id: 18, unit: "Teaching Aptitude", question: "In the SWAYAM platform, which quadrant specifically provides Quizzes and assignments?", options: ["Quadrant-1", "Quadrant-2", "Quadrant-3", "Quadrant-4"], correctAnswer: 2, explanation: "Quadrant-3 on SWAYAM is dedicated to Web Resources (Quizzes and assignments)." },
-            { id: 19, unit: "Teaching Aptitude", question: "Which national coordinator for SWAYAM is responsible for managing engineering courses?", options: ["UGC", "NPTEL", "CEC", "IGNOU"], correctAnswer: 1, explanation: "NPTEL coordinates engineering and technical courses on SWAYAM." },
-            { id: 20, unit: "Teaching Aptitude", question: "SWAYAMPRABHA is a group of how many DTH channels dedicated to educational content?", options: ["32", "34", "40", "80"], correctAnswer: 1, explanation: "SWAYAMPRABHA is a group of 34 (originally 32, now up to 40 in some contexts) DTH channels devoted to telecasting of high-quality educational programmes." },
-            { id: 21, unit: "Teaching Aptitude", question: "Which type of evaluation takes place during the instructional process to provide ongoing feedback?", options: ["Summative Evaluation", "Formative Evaluation", "Placement Evaluation", "Diagnostic Evaluation"], correctAnswer: 1, explanation: "Formative evaluation is conducted during the learning process to monitor progress." },
-            { id: 22, unit: "Teaching Aptitude", question: "An exam that compares a student's score to the predetermined passing mark of 60% is an example of:", options: ["Norm-Referenced Evaluation", "Criterion-Referenced Evaluation", "Ipsative Evaluation", "Formative Evaluation"], correctAnswer: 1, explanation: "Criterion-referenced evaluation compares performance against a set standard or criteria." },
-            { id: 23, unit: "Teaching Aptitude", question: "Under the Choice Based Credit System (CBCS), which type of course aims at man-making education and is value-based?", options: ["Core Course", "Elective Foundation", "Compulsory Foundation", "Generic Elective"], correctAnswer: 1, explanation: "Elective Foundation courses are value-based and aim at man-making education." },
-            { id: 24, unit: "Teaching Aptitude", question: "In the CBCS grading system, what letter grade represents 'Outstanding' performance (Grade Point 10)?", options: ["A+", "A", "O", "S"], correctAnswer: 2, explanation: "'O' stands for Outstanding (Grade Point 10) in the standard CBCS grading." },
-            { id: 25, unit: "Teaching Aptitude", question: "Which of the following is a characteristic of Dysgraphia?", options: ["Difficulty with reading fluency.", "Difficulty writing coherently and organizing ideas on paper.", "Difficulty with mathematical calculations.", "Difficulty with gross motor coordination."], correctAnswer: 1, explanation: "Dysgraphia affects writing abilities, making it hard to write coherently." },
-            { id: 26, unit: "Teaching Aptitude", question: "According to the Cognitive Apprenticeship Model, what is the initial step where learners observe an expert?", options: ["Scaffolding", "Fading", "Modelling", "Coaching"], correctAnswer: 2, explanation: "Modelling involves the expert demonstrating the task while the learner observes." },
-            { id: 27, unit: "Teaching Aptitude", question: "Which software tool is categorized as a Learning Management System (LMS)?", options: ["Microsoft Word", "Google Classroom", "Zoom", "VLC Media Player"], correctAnswer: 1, explanation: "Google Classroom is a blended learning platform/LMS." },
-            { id: 28, unit: "Teaching Aptitude", question: "Which learning theory posits that learning is influenced by cultural and social factors, emphasizing the role of language?", options: ["Sociocultural Theory", "Connectivism", "Behaviorism", "Information Processing Theory"], correctAnswer: 0, explanation: "Vygotsky's Sociocultural Theory emphasizes social interaction and culture." },
-            { id: 29, unit: "Teaching Aptitude", question: "Which element is NOT considered part of the traditional teaching support system?", options: ["Chalkboard", "Textbooks", "Web Conferencing Tools", "Flashcards"], correctAnswer: 2, explanation: "Web conferencing tools are part of ICT-based modern support systems." },
-            { id: 30, unit: "Teaching Aptitude", question: "When is World Teachers' Day celebrated globally?", options: ["September 5th", "October 5th", "November 11th", "January 24th"], correctAnswer: 1, explanation: "World Teachers' Day is held annually on October 5th." },
-            { id: 31, unit: "Teaching Aptitude", question: "In the context of the Cognitive Apprenticeship Model, what does 'Scaffolding' refer to?", options: ["Gradually removing support.", "Providing learners with necessary support and gradually reducing it.", "Observing the expert.", "Reflecting on the learning process."], correctAnswer: 1, explanation: "Scaffolding is providing temporary support to help a learner achieve a goal." },
-            { id: 32, unit: "Teaching Aptitude", question: "Which theory emphasizes that intelligence is not a single entity, but a range of different abilities and talents?", options: ["Triarchic Theory of Intelligence", "Multiple Intelligences Theory", "Two-Factor Theory", "Emotional Intelligence Theory"], correctAnswer: 1, explanation: "Howard Gardner's Multiple Intelligences Theory proposes several different types of intelligences." },
-            { id: 33, unit: "Teaching Aptitude", question: "What is the primary objective of using 'Heuristic Methods' in teaching?", options: ["To ensure rote memorization.", "To foster inquiry-based learning and problem-solving.", "To deliver lectures efficiently.", "To maintain strict discipline."], correctAnswer: 1, explanation: "Heuristic method places the student in the position of a discoverer." },
-            { id: 34, unit: "Teaching Aptitude", question: "According to the maxims of teaching, proceeding from 'Whole to part' means:", options: ["Focusing only on details.", "Presenting an overview of the topic before delving into individual components.", "Starting with complex theories.", "Skipping the introduction."], correctAnswer: 1, explanation: "Gestalt psychology supports 'whole to part', giving the big picture first." },
-            { id: 35, unit: "Teaching Aptitude", question: "Which of the following describes 'Asynchronous Messaging' in the context of digital education?", options: ["Communication happens in real-time.", "Communication does not require immediate responses and allows flexible timing.", "It is only possible face-to-face.", "It requires a telephone connection."], correctAnswer: 1, explanation: "Asynchronous means not occurring at the same time (e.g., email, discussion boards)." },
-            { id: 36, unit: "Teaching Aptitude", question: "What is the primary role of the teacher in a Learner-Centered teaching method?", options: ["To be the sole authority of knowledge.", "To serve as a dictator.", "To serve as a facilitator, guiding the students' learning journey.", "To passively observe the students."], correctAnswer: 2, explanation: "In learner-centered methods, the teacher facilitates rather than dictates." },
-            { id: 37, unit: "Teaching Aptitude", question: "Which assessment type focuses on comparing a student's performance to the performance of a population or group?", options: ["Criterion-Referenced Evaluation", "Norm-Referenced Evaluation", "Formative Evaluation", "Diagnostic Evaluation"], correctAnswer: 1, explanation: "Norm-referenced tests compare test-takers to one another." },
-            { id: 38, unit: "Teaching Aptitude", question: "In Bloom's Taxonomy, 'Analysis' falls under which domain?", options: ["Cognitive Domain", "Affective Domain", "Psychomotor Domain", "Social Domain"], correctAnswer: 0, explanation: "Analysis is a higher-order thinking skill in the Cognitive domain." },
-            { id: 39, unit: "Teaching Aptitude", question: "Which of the following is a key characteristic of adolescent learners?", options: ["They are completely independent.", "They rely solely on intrinsic motivation.", "They undergo a process of identity formation and face emotional volatility.", "They have extensive life experience to draw from."], correctAnswer: 2, explanation: "Adolescence is marked by significant physical, emotional, and social changes." },
-            { id: 40, unit: "Teaching Aptitude", question: "Which software is primarily categorized as an Interactive Lesson Delivery tool?", options: ["Microsoft Excel", "Nearpod", "Adobe Photoshop", "Notepad"], correctAnswer: 1, explanation: "Nearpod allows for interactive presentations and lesson delivery." },
-            { id: 41, unit: "Teaching Aptitude", question: "According to the principles of teaching, which of these is an external factor affecting teaching?", options: ["Teacher's subject knowledge", "Student's motivation", "Institutional policies", "Teacher's communication skills"], correctAnswer: 2, explanation: "Institutional policies are external environmental factors." },
-            { id: 42, unit: "Teaching Aptitude", question: "Which of the following is considered a 'Projected' instructional facility?", options: ["Chalkboard", "Epidiascope", "Globe", "Chart"], correctAnswer: 1, explanation: "An epidiascope projects images of opaque and transparent objects." },
-            { id: 43, unit: "Teaching Aptitude", question: "The National Education Policy (NEP) 2020 proposes to replace the 10+2 structure with:", options: ["5+3+3+4", "4+4+4+3", "5+4+3+3", "8+4+3"], correctAnswer: 0, explanation: "NEP 2020 introduces the 5+3+3+4 pedagogical structure." },
-            { id: 44, unit: "Teaching Aptitude", question: "In ancient India, the formal initiation ceremony marking a student's transition to a Guru's mentorship was called:", options: ["Samavartana", "Upanayana", "Vidyarambha", "Pabbajja"], correctAnswer: 1, explanation: "Upanayana was the sacred thread ceremony initiating formal education." },
-            { id: 45, unit: "Teaching Aptitude", question: "Under the CBCS system, an 'Elective Course' can be categorized as:", options: ["Generic or Discipline centric", "Only Foundation", "Only Core", "Always Compulsory"], correctAnswer: 0, explanation: "Electives can be Discipline Specific (DSE) or Generic (GE)." },
-            { id: 46, unit: "Teaching Aptitude", question: "Which theory emphasizes reinforcement and rewards to shape desired behaviors?", options: ["Cognitivism", "Constructivism", "Behaviorism", "Humanism"], correctAnswer: 2, explanation: "Behaviorism, associated with Skinner, focuses on observable behaviors and reinforcement." },
-            { id: 47, unit: "Teaching Aptitude", question: "What is the highest level in the Affective Domain of Bloom's Taxonomy?", options: ["Receiving", "Responding", "Valuing", "Characterization"], correctAnswer: 3, explanation: "Characterization by a value set is the highest level of the affective domain." },
-            { id: 48, unit: "Teaching Aptitude", question: "Which of the following is NOT an objective of teaching?", options: ["To facilitate learning.", "To shape behavior.", "To limit the learner's exposure to external experiences.", "To develop critical thinking."], correctAnswer: 2, explanation: "Teaching aims to broaden experiences, not limit them." },
-            { id: 49, unit: "Teaching Aptitude", question: "Which digital initiative acts as an integrated platform offering free, high-quality online courses?", options: ["e-PG Pathshala", "SWAYAM", "Shodhganga", "Vidwan"], correctAnswer: 1, explanation: "SWAYAM is the primary MOOC platform for India." },
-            { id: 50, unit: "Teaching Aptitude", question: "In the context of instructional facilities, which category does a 'Field Trip' fall under?", options: ["Audio-Visual Aid", "Visual Aid", "Activity", "Projected Aid"], correctAnswer: 2, explanation: "A field trip is an experiential activity-based instructional method." }
+        const defaultQuestions = [
+            {
+                question: "Which level of teaching relies most heavily on the rote memorization of facts and information without necessarily requiring deep understanding?",
+                options: ["Memory Level", "Understanding Level", "Reflective Level", "Pedagogical Level"],
+                correctAnswer: "Memory Level"
+            },
+            {
+                question: "In the context of adult learners (Andragogy), which of the following characteristics is most distinct from pedagogy (teaching children)?",
+                options: ["Learners rely completely on the instructor for direction.", "Learning is highly subject-centered rather than problem-centered.", "Internal motivation is a stronger driver than external rewards.", "Learners have little to no lived experience to draw upon."],
+                correctAnswer: "Internal motivation is a stronger driver than external rewards."
+            },
+            {
+                question: "A teacher is conducting a quiz during the course of instruction to monitor student progress and provide immediate feedback. Which type of evaluation is this?",
+                options: ["Summative Evaluation", "Formative Evaluation", "Diagnostic Evaluation", "Placement Evaluation"],
+                correctAnswer: "Formative Evaluation"
+            },
+            {
+                question: "Which of the following teaching methods is considered primarily 'Learner-Centered'?",
+                options: ["Lecture Method", "Team Teaching", "Heuristic Method", "Demonstration Method"],
+                correctAnswer: "Heuristic Method"
+            },
+            {
+                question: "Under the Choice Based Credit System (CBCS) in Indian higher education, which type of course is considered mandatory and foundational for all students in a specific discipline?",
+                options: ["Elective Course", "Core Course", "Ability Enhancement Course", "Skill Enhancement Course"],
+                correctAnswer: "Core Course"
+            }
         ];
 
-        const { useState, useEffect } = React;
+        function App() {
+            const [questions, setQuestions] = React.useState([]);
+            const [currentQIndex, setCurrentQIndex] = React.useState(0);
+            const [showMobilePalette, setShowMobilePalette] = React.useState(false);
+            const [timeLeft, setTimeLeft] = React.useState(3600); // 60 minutes
+            const [examStarted, setExamStarted] = React.useState(false);
+            const [examSubmitted, setExamSubmitted] = React.useState(false);
+            const [score, setScore] = React.useState(0);
+            const [answers, setAnswers] = React.useState({});
+            const [qStatus, setQStatus] = React.useState([]);
 
-        const CBTApp = () => {
-            // State Management
-            const [gameState, setGameState] = useState('INSTRUCTIONS'); // INSTRUCTIONS, EXAM, RESULT
-            const [currentQIndex, setCurrentQIndex] = useState(0);
-            const [answers, setAnswers] = useState({}); // Stores user answers { questionIndex: selectedOptionIndex }
-            const [statuses, setStatuses] = useState({}); // Stores question status (visited, marked, answered)
-            const [timeLeft, setTimeLeft] = useState(3600); // 60 minutes in seconds
-            const [showSubmitModal, setShowSubmitModal] = useState(false);
-            const [showMobilePalette, setShowMobilePalette] = useState(false);
-
-            useEffect(() => {
-                // Initialize all questions as not visited, except the first one
-                const initialStatuses = {};
-                QUIZ_DATA.forEach((_, i) => {
-                    initialStatuses[i] = i === 0 ? 'not_answered' : 'not_visited';
-                });
-                setStatuses(initialStatuses);
+            React.useEffect(() => {
+                fetch('ugc_net_full_mock.json')
+                    .then(res => res.ok ? res.json() : Promise.reject('Fallback'))
+                    .then(data => {
+                        const loadedQuestions = data.answeredQuestions ? data.answeredQuestions : (data.questions || data);
+                        const cleanQuestions = loadedQuestions.map(q => {
+                            if (q.options) return q;
+                            return {
+                                question: q.question,
+                                correctAnswer: q.correctAnswer,
+                                options: [q.correctAnswer, "Option B", "Option C", "Option D"].sort(() => Math.random() - 0.5)
+                            }
+                        });
+                        
+                        setQuestions(cleanQuestions);
+                        setQStatus(new Array(cleanQuestions.length).fill('not_visited'));
+                    })
+                    .catch(err => {
+                        console.warn("Could not load external JSON, using default questions.");
+                        setQuestions(defaultQuestions);
+                        setQStatus(new Array(defaultQuestions.length).fill('not_visited'));
+                    });
+                    
+                setTimeout(() => {
+                    if (window.lucide) window.lucide.createIcons();
+                }, 100);
             }, []);
 
-            useEffect(() => {
+            React.useEffect(() => {
                 let timer;
-                if (gameState === 'EXAM' && timeLeft > 0) {
+                if (examStarted && !examSubmitted && timeLeft > 0) {
                     timer = setInterval(() => {
-                        setTimeLeft((prev) => prev - 1);
+                        setTimeLeft(prev => prev - 1);
                     }, 1000);
-                } else if (timeLeft === 0 && gameState === 'EXAM') {
-                    handleSubmitTest(); // Auto submit when time runs out
+                } else if (timeLeft === 0 && examStarted && !examSubmitted) {
+                    submitExam();
                 }
                 return () => clearInterval(timer);
-            }, [gameState, timeLeft]);
+            }, [examStarted, examSubmitted, timeLeft]);
+
+            React.useEffect(() => {
+                if (window.lucide) window.lucide.createIcons();
+            });
 
             const formatTime = (seconds) => {
                 const h = Math.floor(seconds / 3600);
@@ -188,396 +171,330 @@
                 return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
             };
 
-            const handleSelectOption = (optIndex) => {
-                setAnswers({ ...answers, [currentQIndex]: optIndex });
+            const getStatusColor = (status) => {
+                switch(status) {
+                    case 'answered': return 'bg-green-600 text-white border-green-700';
+                    case 'not_answered': return 'bg-red-500 text-white border-red-600';
+                    case 'marked': return 'bg-purple-600 text-white border-purple-700';
+                    case 'answered_marked': return 'bg-purple-600 text-white border-purple-700 relative overflow-hidden';
+                    default: return 'bg-gray-200 text-gray-700 border-gray-300';
+                }
+            };
+
+            const getStatusCounts = () => {
+                const counts = { answered: 0, not_answered: 0, marked: 0, answered_marked: 0, not_visited: 0 };
+                qStatus.forEach(s => {
+                    if (counts[s] !== undefined) counts[s]++;
+                });
+                return counts;
+            };
+
+            const handleStart = () => {
+                if (questions.length === 0) return;
+                setExamStarted(true);
+                updateStatus(0, 'not_answered'); 
+            };
+
+            const updateStatus = (index, newStatus) => {
+                setQStatus(prev => {
+                    const newArr = [...prev];
+                    if ((newArr[index] === 'answered' || newArr[index] === 'answered_marked') && newStatus === 'not_answered') {
+                        return newArr; 
+                    }
+                    newArr[index] = newStatus;
+                    return newArr;
+                });
+            };
+
+            const handleOptionSelect = (option) => {
+                setAnswers(prev => ({ ...prev, [currentQIndex]: option }));
             };
 
             const handleSaveAndNext = () => {
-                const newStatuses = { ...statuses };
-                if (answers[currentQIndex] !== undefined) {
-                    newStatuses[currentQIndex] = 'answered';
+                if (answers[currentQIndex]) {
+                    updateStatus(currentQIndex, 'answered');
                 } else {
-                    newStatuses[currentQIndex] = 'not_answered';
+                    updateStatus(currentQIndex, 'not_answered');
                 }
-                
-                // Move to next question if not at the end
-                if (currentQIndex < QUIZ_DATA.length - 1) {
-                    if (newStatuses[currentQIndex + 1] === 'not_visited') {
-                        newStatuses[currentQIndex + 1] = 'not_answered';
-                    }
-                    setCurrentQIndex(currentQIndex + 1);
+                goToNextQuestion();
+            };
+
+            const handleMarkForReview = () => {
+                if (answers[currentQIndex]) {
+                    updateStatus(currentQIndex, 'answered_marked');
+                } else {
+                    updateStatus(currentQIndex, 'marked');
                 }
-                setStatuses(newStatuses);
+                goToNextQuestion();
             };
 
             const handleClearResponse = () => {
                 const newAnswers = { ...answers };
-                delete newAnswers[currentQIndex]; // Remove the answer
+                delete newAnswers[currentQIndex];
                 setAnswers(newAnswers);
+                updateStatus(currentQIndex, 'not_answered'); 
             };
 
-            const handleMarkForReview = () => {
-                const newStatuses = { ...statuses };
-                if (answers[currentQIndex] !== undefined) {
-                    newStatuses[currentQIndex] = 'answered_marked';
-                } else {
-                    newStatuses[currentQIndex] = 'marked';
-                }
-                
-                if (currentQIndex < QUIZ_DATA.length - 1) {
-                    if (newStatuses[currentQIndex + 1] === 'not_visited') {
-                        newStatuses[currentQIndex + 1] = 'not_answered';
+            const goToNextQuestion = () => {
+                if (currentQIndex < questions.length - 1) {
+                    const nextIndex = currentQIndex + 1;
+                    setCurrentQIndex(nextIndex);
+                    if (qStatus[nextIndex] === 'not_visited') {
+                        updateStatus(nextIndex, 'not_answered');
                     }
-                    setCurrentQIndex(currentQIndex + 1);
                 }
-                setStatuses(newStatuses);
             };
 
-            const navigateToQuestion = (index) => {
-                const newStatuses = { ...statuses };
-                // If moving away without saving an answer, mark current as not answered 
-                if (newStatuses[currentQIndex] === 'not_visited') {
-                    newStatuses[currentQIndex] = 'not_answered';
-                }
-                
-                if (newStatuses[index] === 'not_visited') {
-                    newStatuses[index] = 'not_answered';
-                }
-                
-                setStatuses(newStatuses);
+            const goToQuestion = (index) => {
                 setCurrentQIndex(index);
-                setShowMobilePalette(false); // Close mobile menu after clicking
+                setShowMobilePalette(false); 
+                if (qStatus[index] === 'not_visited') {
+                    updateStatus(index, 'not_answered');
+                }
             };
 
-            const handleSubmitTest = () => {
-                setShowSubmitModal(false);
-                setGameState('RESULT');
-            };
-
-            const getStats = () => {
-                const stats = { answered: 0, not_answered: 0, not_visited: 0, marked: 0, answered_marked: 0 };
-                Object.values(statuses).forEach(status => {
-                    if (stats[status] !== undefined) stats[status]++;
+            const submitExam = () => {
+                let calculatedScore = 0;
+                questions.forEach((q, idx) => {
+                    if (answers[idx] === q.correctAnswer) {
+                        calculatedScore += 2;
+                    }
                 });
-                return stats;
+                setScore(calculatedScore);
+                setExamSubmitted(true);
             };
 
-            if (gameState === 'INSTRUCTIONS') {
+            if (!examStarted) {
                 return (
-                    <div className="h-screen flex flex-col bg-white overflow-y-auto w-full">
-                        <div className="bg-blue-900 text-white p-3 md:p-4 shadow-md flex justify-between items-center w-full sticky top-0 z-10">
-                            <h1 className="text-lg md:text-2xl font-bold truncate">NTA UGC NET Simulator</h1>
-                            <span className="font-semibold text-blue-200 text-xs md:text-sm whitespace-nowrap ml-2">Sys: C001</span>
-                        </div>
-                        <div className="w-full max-w-4xl mx-auto p-4 md:p-8 flex-grow">
-                            <h2 className="text-xl md:text-3xl font-bold text-gray-800 mb-4 md:mb-6 border-b pb-2 md:pb-4">General Instructions</h2>
-                            <div className="text-gray-700 space-y-3 md:space-y-4 mb-6 md:mb-8 text-sm md:text-base">
-                                <p><strong>1.</strong> The clock has been set at the server and the countdown timer will display the time remaining for you to complete the exam.</p>
-                                <p><strong>2.</strong> The Question Palette displayed on the right side (or bottom on mobile) of screen will show the status of each question using one of the following symbols:</p>
-                                
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 bg-gray-50 p-4 md:p-6 rounded-lg border border-gray-200 text-sm">
-                                    <div className="flex items-center gap-3"><div className="w-8 h-8 shrink-0 flex items-center justify-center font-bold text-sm q-not-visited">1</div> You have not visited the question yet.</div>
-                                    <div className="flex items-center gap-3"><div className="w-8 h-8 shrink-0 flex items-center justify-center font-bold text-sm q-not-answered">2</div> You have not answered the question.</div>
-                                    <div className="flex items-center gap-3"><div className="w-8 h-8 shrink-0 flex items-center justify-center font-bold text-sm q-answered">3</div> You have answered the question.</div>
-                                    <div className="flex items-center gap-3"><div className="w-8 h-8 shrink-0 flex items-center justify-center font-bold text-sm q-marked">4</div> You have NOT answered the question, but marked it for review.</div>
-                                    <div className="flex items-start gap-3"><div className="w-8 h-8 shrink-0 flex items-center justify-center font-bold text-sm q-answered-marked">5</div> <div>You have answered the question, but marked it for review. <div className="text-xs text-green-600 font-bold">(Will be evaluated)</div></div></div>
-                                </div>
-                                
-                                <p className="font-bold text-red-600 mt-4">Exam Structure:</p>
-                                <ul className="list-disc pl-5 md:pl-6 space-y-1">
-                                    <li>Paper 1: Teaching Aptitude (Mock)</li>
-                                    <li>Total Questions: 50</li>
-                                    <li>Marks per Question: +2</li>
-                                    <li>Negative Marking: None</li>
+                    <div className="flex items-center justify-center h-full w-full bg-gray-100 p-4 font-sans overflow-y-auto">
+                        <div className="bg-white p-6 md:p-10 rounded-xl shadow-xl max-w-lg w-full text-center border-t-4 border-blue-600 m-auto">
+                            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/87/National_Testing_Agency_logo.svg/300px-National_Testing_Agency_logo.svg.png" 
+                                 alt="NTA Logo" className="h-16 mx-auto mb-6 object-contain" 
+                                 onError={(e) => { e.target.style.display = 'none'; }} />
+                            <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">UGC NET Paper 1</h1>
+                            <p className="text-gray-500 mb-8 font-medium">Computer Based Test (CBT) Simulator</p>
+                            
+                            <div className="text-left bg-blue-50 p-4 rounded-lg mb-8 border border-blue-100">
+                                <h3 className="font-bold text-blue-800 mb-2 border-b border-blue-200 pb-1">Instructions:</h3>
+                                <ul className="list-disc pl-5 text-sm text-blue-900 space-y-1">
+                                    <li>Total Questions: {questions.length > 0 ? questions.length : 'Loading...'}</li>
+                                    <li>Total Time: 60 Minutes</li>
+                                    <li>Each question carries 2 marks.</li>
+                                    <li>No negative marking.</li>
                                 </ul>
                             </div>
                             
-                            <div className="flex justify-center border-t pt-4 md:pt-6 pb-8">
-                                <button onClick={() => setGameState('EXAM')} className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 md:px-12 rounded shadow-lg transition transform hover:scale-105 active:scale-95 text-base md:text-lg">
-                                    I am ready to begin
-                                </button>
-                            </div>
+                            <button onClick={handleStart} disabled={questions.length === 0} className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-3 px-6 rounded-lg transition-colors shadow-md text-lg active:scale-[0.98]">
+                                {questions.length > 0 ? 'I am ready to begin' : 'Loading questions...'}
+                            </button>
                         </div>
                     </div>
                 );
             }
 
-            if (gameState === 'RESULT') {
-                let score = 0;
-                let correct = 0;
-                let incorrect = 0;
-                let unattempted = 0;
-
-                // Calculate final scores
-                QUIZ_DATA.forEach((q, i) => {
-                    if (answers[i] === q.correctAnswer) { score += 2; correct++; }
-                    else if (answers[i] !== undefined) { incorrect++; }
-                    else { unattempted++; }
-                });
-
+            if (examSubmitted) {
                 return (
-                    <div className="h-screen bg-gray-50 flex flex-col overflow-y-auto w-full">
-                        <div className="bg-blue-900 text-white p-4 md:p-6 shadow-md text-center w-full shrink-0 sticky top-0 z-10">
-                            <h1 className="text-xl md:text-3xl font-bold">Score Card & Analysis</h1>
-                            <p className="text-blue-200 mt-1 text-xs md:text-base">UGC NET Teaching Aptitude Simulator</p>
-                        </div>
-                        
-                        <div className="w-full max-w-5xl mx-auto p-4 md:p-6 space-y-4 md:space-y-6">
-                            {/* Score Dashboard */}
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-                                <div className="bg-white rounded-xl shadow p-4 md:p-6 border-l-4 border-blue-500 text-center">
-                                    <div className="text-gray-500 text-xs md:text-sm font-semibold uppercase">Total Score</div>
-                                    <div className="text-3xl md:text-4xl font-black text-blue-600 mt-2">{score} <span className="text-sm md:text-xl text-gray-400">/ 100</span></div>
+                    <div className="flex items-center justify-center h-full w-full bg-gray-100 p-4 font-sans overflow-y-auto">
+                        <div className="bg-white p-6 md:p-10 rounded-xl shadow-xl max-w-2xl w-full m-auto">
+                            <div className="text-center mb-8">
+                                <i data-lucide="check-circle" className="w-16 h-16 text-green-500 mx-auto mb-4"></i>
+                                <h1 className="text-3xl font-bold text-gray-800">Test Submitted Successfully</h1>
+                                <p className="text-gray-600 mt-2">Here is your performance summary</p>
+                            </div>
+                            
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                                <div className="bg-blue-50 p-4 rounded-lg text-center border border-blue-100">
+                                    <div className="text-sm text-blue-600 font-bold uppercase">Total Score</div>
+                                    <div className="text-2xl font-black text-blue-800">{score} <span className="text-lg font-medium text-blue-600">/ {questions.length * 2}</span></div>
                                 </div>
-                                <div className="bg-white rounded-xl shadow p-4 md:p-6 border-l-4 border-green-500 text-center">
-                                    <div className="text-gray-500 text-xs md:text-sm font-semibold uppercase">Correct</div>
-                                    <div className="text-3xl md:text-4xl font-black text-green-500 mt-2">{correct}</div>
+                                <div className="bg-green-50 p-4 rounded-lg text-center border border-green-100">
+                                    <div className="text-sm text-green-600 font-bold uppercase">Correct</div>
+                                    <div className="text-2xl font-black text-green-800">{score / 2}</div>
                                 </div>
-                                <div className="bg-white rounded-xl shadow p-4 md:p-6 border-l-4 border-red-500 text-center">
-                                    <div className="text-gray-500 text-xs md:text-sm font-semibold uppercase">Incorrect</div>
-                                    <div className="text-3xl md:text-4xl font-black text-red-500 mt-2">{incorrect}</div>
+                                <div className="bg-red-50 p-4 rounded-lg text-center border border-red-100">
+                                    <div className="text-sm text-red-600 font-bold uppercase">Incorrect</div>
+                                    <div className="text-2xl font-black text-red-800">{Object.keys(answers).length - (score / 2)}</div>
                                 </div>
-                                <div className="bg-white rounded-xl shadow p-4 md:p-6 border-l-4 border-gray-400 text-center">
-                                    <div className="text-gray-500 text-xs md:text-sm font-semibold uppercase">Unattempted</div>
-                                    <div className="text-3xl md:text-4xl font-black text-gray-600 mt-2">{unattempted}</div>
+                                <div className="bg-gray-50 p-4 rounded-lg text-center border border-gray-200">
+                                    <div className="text-sm text-gray-600 font-bold uppercase">Unattempted</div>
+                                    <div className="text-2xl font-black text-gray-800">{questions.length - Object.keys(answers).length}</div>
                                 </div>
                             </div>
 
-                            {/* Question by Question Solutions */}
-                            <h2 className="text-xl md:text-2xl font-bold text-gray-800 border-b pb-2 mt-6 md:mt-8">Detailed Solutions</h2>
-                            <div className="space-y-4 md:space-y-6 pb-12">
-                                {QUIZ_DATA.map((q, i) => {
-                                    const isCorrect = answers[i] === q.correctAnswer;
-                                    const isAttempted = answers[i] !== undefined;
-                                    
-                                    return (
-                                        <div key={q.id} className={`bg-white rounded-lg shadow-sm border ${isAttempted ? (isCorrect ? 'border-green-300' : 'border-red-300') : 'border-gray-300'} overflow-hidden`}>
-                                            <div className={`px-3 py-2 md:px-4 md:py-2 flex justify-between items-center text-xs md:text-sm font-bold text-white ${isAttempted ? (isCorrect ? 'bg-green-600' : 'bg-red-600') : 'bg-gray-500'}`}>
-                                                <span className="truncate mr-2">Q{i + 1} | {q.unit}</span>
-                                                <span className="whitespace-nowrap">{isAttempted ? (isCorrect ? '+2 Marks' : '0 Marks') : 'Not Attempted'}</span>
-                                            </div>
-                                            <div className="p-4 md:p-5">
-                                                <p className="font-semibold text-gray-800 mb-4 whitespace-pre-wrap text-sm md:text-base leading-relaxed">{q.question}</p>
-                                                <div className="space-y-2 mb-4">
-                                                    {q.options.map((opt, optIdx) => (
-                                                        <div key={optIdx} className={`px-3 py-2 md:px-4 md:py-3 rounded border text-sm ${optIdx === q.correctAnswer ? 'bg-green-100 border-green-500 text-green-900 font-semibold' : (answers[i] === optIdx ? 'bg-red-100 border-red-500 text-red-900 line-through' : 'bg-gray-50 border-gray-200 text-gray-600')}`}>
-                                                            {String.fromCharCode(65 + optIdx)}. {opt}
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                                <div className="bg-blue-50 border border-blue-200 rounded p-3 md:p-4 text-sm text-blue-900 leading-relaxed">
-                                                    <strong>Explanation:</strong> {q.explanation}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
+                            <button onClick={() => window.location.reload()} className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-colors shadow-md active:scale-[0.98]">
+                                Restart Simulator
+                            </button>
                         </div>
                     </div>
                 );
             }
 
-            const currentQ = QUIZ_DATA[currentQIndex];
-            const stats = getStats();
+            const currentQ = questions[currentQIndex];
+            const counts = getStatusCounts();
 
             return (
-                <div className="h-screen w-full flex flex-col bg-[#eef2f5] overflow-hidden fixed inset-0">
-                    {/* Header Top Nav */}
-                    <div className="bg-[#1e40af] text-white px-3 py-2.5 md:px-4 md:py-3 flex justify-between items-center shrink-0 w-full z-20">
-                        <div className="font-bold text-sm md:text-lg truncate tracking-wide">UGC NET JRF - Teaching Aptitude</div>
-                        <button 
-                            className="md:hidden flex items-center bg-blue-800 px-3 py-1.5 rounded text-xs font-semibold shadow-sm border border-blue-700 active:bg-blue-900"
-                            onClick={() => setShowMobilePalette(!showMobilePalette)}
-                        >
-                            <i data-lucide="grid" className="w-4 h-4 mr-1.5"></i> Palette
-                        </button>
-                    </div>
+                <div className="app-wrapper bg-gray-50 font-sans text-sm md:text-base no-select">
                     
-                    {/* Candidate Info and Timer Strip */}
-                    <div className="bg-white border-b border-gray-300 px-3 py-2 md:px-4 md:py-3 flex justify-between items-center shrink-0 cbt-shadow z-10 w-full">
-                        <div className="flex items-center gap-2 md:gap-4">
-                            <div className="bg-gray-200 rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center text-gray-500 font-bold border-2 border-gray-300 text-sm md:text-base shrink-0">C</div>
-                            <div className="block">
-                                <div className="text-[10px] md:text-sm font-semibold text-gray-500">Candidate Name:</div>
-                                <div className="font-bold text-blue-900 text-xs md:text-base truncate max-w-[140px] md:max-w-none">Mock User</div>
+                    {/* Header */}
+                    <header className="bg-[#1f4e79] text-white py-2 px-4 flex justify-between items-center shadow-md shrink-0 z-20">
+                        <div className="flex items-center">
+                            <span className="font-bold text-lg hidden md:block tracking-wide">National Testing Agency (UGC NET)</span>
+                            <span className="font-bold text-lg md:hidden tracking-wide">UGC NET Simulator</span>
+                        </div>
+                        <div className="flex items-center gap-4">
+                            <div className="bg-white/10 px-3 py-1 rounded text-sm font-mono flex items-center border border-white/20">
+                                <i data-lucide="clock" className="w-4 h-4 mr-2"></i>
+                                Time Left: <span className={`ml-2 font-bold ${timeLeft < 300 ? 'text-red-400' : 'text-white'}`}>{formatTime(timeLeft)}</span>
                             </div>
                         </div>
-                        <div className="flex items-center gap-2 md:gap-3">
-                            <div className="text-xs md:text-sm font-semibold text-gray-600 hidden sm:block">Time Left:</div>
-                            <div className={`font-mono text-base md:text-2xl font-bold px-2.5 py-1 md:px-3 md:py-1 rounded bg-gray-100 border shadow-inner tracking-wider ${timeLeft < 300 ? 'text-red-600 border-red-300 animate-pulse bg-red-50' : 'text-gray-800 border-gray-300'}`}>
-                                {formatTime(timeLeft)}
-                            </div>
-                        </div>
-                    </div>
+                    </header>
 
-                    {/* Main Workspace Area (Question on left, Palette on right) */}
-                    <div className="flex flex-1 overflow-hidden relative w-full h-full">
+                    {/* Main content wrapper */}
+                    <div className="flex-1 flex flex-col md:flex-row overflow-hidden relative">
                         
-                        {/* Question Content Panel */}
-                        <div className="flex-1 flex flex-col bg-white md:m-2 rounded-lg md:border border-gray-300 overflow-hidden relative mobile-full-width h-full shadow-sm">
+                        {/* Left Side: Question Area */}
+                        <div className="flex-1 flex flex-col bg-white overflow-hidden relative z-0">
                             
                             {/* Question Header */}
-                            <div className="bg-gray-100 border-b border-gray-300 p-2.5 md:p-3 flex justify-between items-center text-xs md:text-sm font-bold text-gray-700 shrink-0">
-                                <div className="truncate mr-2">Section: {currentQ.unit}</div>
-                                <div className="bg-blue-100 text-blue-800 px-2 py-1 rounded-md whitespace-nowrap shadow-sm border border-blue-200">
-                                    Q. {currentQIndex + 1} / {QUIZ_DATA.length}
+                            <div className="bg-gray-100 p-2 md:p-3 border-b border-gray-300 flex justify-between items-center shrink-0 shadow-sm">
+                                <div className="font-bold text-[#1f4e79] flex items-center">
+                                    <span className="bg-[#1f4e79] text-white px-2 py-0.5 rounded text-xs mr-2">Paper 1</span>
+                                    Teaching & Research Aptitude
                                 </div>
+                                <button onClick={() => setShowMobilePalette(true)} className="md:hidden flex items-center text-blue-700 bg-blue-100 px-3 py-1.5 rounded-md font-semibold text-sm border border-blue-200 shadow-sm active:bg-blue-300 transition-colors">
+                                    <i data-lucide="layout-grid" className="w-4 h-4 mr-1"></i> Questions
+                                </button>
                             </div>
                             
-                            <!-- Question and Options Area -->
-                            <div className="flex-1 overflow-y-auto p-4 md:p-6 pb-28 md:pb-6">
+                            {/* Scrollable Question Content */}
+                            <div className="flex-1 overflow-y-auto p-4 md:p-6 pb-12">
                                 <div className="flex mb-5 md:mb-6 text-gray-800">
-                                    <span className="font-bold mr-3 text-base md:text-lg shrink-0">{currentQIndex + 1}.</span>
+                                    <span className="font-bold mr-3 text-base md:text-lg shrink-0 mt-0.5">{currentQIndex + 1}.</span>
                                     <div className="text-base md:text-lg font-medium whitespace-pre-wrap leading-relaxed">{currentQ.question}</div>
                                 </div>
-                                
-                                <div className="space-y-3 md:space-y-4 ml-4 md:ml-8 max-w-3xl">
-                                    {currentQ.options.map((opt, idx) => (
-                                        <label key={idx} className="flex items-center md:items-start gap-3 cursor-pointer p-3 md:p-3 bg-gray-50 md:bg-transparent hover:bg-gray-100 md:hover:bg-gray-50 rounded-lg border border-gray-200 md:border-transparent md:hover:border-gray-200 transition-colors w-full group">
+
+                                <div className="space-y-4 pl-2 md:pl-7 pb-8"> 
+                                    {currentQ.options.map((option, index) => (
+                                        <label key={index} className={`flex items-start p-3 md:p-4 rounded-lg border-2 cursor-pointer transition-colors ${answers[currentQIndex] === option ? 'border-blue-500 bg-blue-50 shadow-sm' : 'border-gray-200 hover:bg-gray-50'}`}>
                                             <input 
                                                 type="radio" 
-                                                name={`question-${currentQIndex}`} 
-                                                className="mt-0 md:mt-1 w-5 h-5 md:w-5 md:h-5 text-blue-600 cursor-pointer shrink-0 accent-blue-600"
-                                                checked={answers[currentQIndex] === idx}
-                                                onChange={() => handleSelectOption(idx)}
+                                                name={`question-${currentQIndex}`}
+                                                value={option}
+                                                checked={answers[currentQIndex] === option}
+                                                onChange={() => handleOptionSelect(option)}
+                                                className="mt-0.5 mr-4 shrink-0 text-blue-600 focus:ring-blue-500 cursor-pointer"
                                             />
-                                            <span className="text-sm md:text-base text-gray-700 font-medium leading-snug group-hover:text-blue-900">
-                                                {idx + 1}. {opt}
-                                            </span>
+                                            <span className="text-gray-700 leading-snug cursor-pointer block w-full">{option}</span>
                                         </label>
                                     ))}
                                 </div>
                             </div>
 
-                            <!-- Action Buttons (Footer) -->
-                            <div className="absolute bottom-0 left-0 right-0 md:relative bg-gray-100 border-t border-gray-300 p-4 flex justify-between items-center shrink-0 z-10 w-full shadow-[0_-4px_10px_rgba(0,0,0,0.05)] md:shadow-none pb-safe">
+                            {/* Footer Buttons (Locked at bottom via shrink-0 in a flex-col layout) */}
+                            <div className="bg-gray-100 border-t border-gray-300 p-3 sm:p-4 flex justify-between items-center shrink-0 w-full z-10 shadow-[0_-10px_15px_-3px_rgba(0,0,0,0.05)] safe-area-pb">
                                 <div className="flex gap-2">
-                                    <button onClick={handleMarkForReview} className="px-3 py-2 md:px-5 md:py-2 border border-gray-400 bg-white hover:bg-gray-50 text-gray-700 font-semibold rounded shadow-sm text-xs md:text-sm transition flex items-center justify-center min-w-[80px] md:min-w-0 active:bg-gray-100">
-                                        <span className="md:hidden"><i data-lucide="bookmark" className="w-4 h-4 mr-1"></i></span>
-                                        <span className="hidden md:inline">Mark & Next</span>
-                                        <span className="md:hidden">Mark</span>
+                                    <button onClick={handleMarkForReview} className="px-3 py-3 sm:px-5 sm:py-2.5 border border-gray-400 bg-white hover:bg-gray-50 text-gray-700 font-semibold rounded shadow-sm text-xs sm:text-sm transition flex items-center justify-center min-w-[85px] active:bg-gray-200">
+                                        <span className="sm:hidden"><i data-lucide="bookmark" className="w-4 h-4 mr-1"></i></span>
+                                        <span className="hidden sm:inline">Mark & Next</span>
+                                        <span className="sm:hidden">Mark</span>
                                     </button>
-                                    <button onClick={handleClearResponse} className="px-3 py-2 md:px-5 md:py-2 border border-gray-400 bg-white hover:bg-gray-50 text-gray-700 font-semibold rounded shadow-sm text-xs md:text-sm transition flex items-center justify-center min-w-[80px] md:min-w-0 active:bg-gray-100">
-                                        <span className="md:hidden"><i data-lucide="eraser" className="w-4 h-4 mr-1"></i></span>
-                                        <span className="hidden md:inline">Clear</span>
-                                        <span className="md:hidden">Clear</span>
+                                    <button onClick={handleClearResponse} className="px-3 py-3 sm:px-5 sm:py-2.5 border border-gray-400 bg-white hover:bg-gray-50 text-gray-700 font-semibold rounded shadow-sm text-xs sm:text-sm transition flex items-center justify-center min-w-[85px] active:bg-gray-200">
+                                        <span className="sm:hidden"><i data-lucide="eraser" className="w-4 h-4 mr-1"></i></span>
+                                        <span className="hidden sm:inline">Clear</span>
+                                        <span className="sm:hidden">Clear</span>
                                     </button>
                                 </div>
-                                <button onClick={handleSaveAndNext} className="px-6 py-2 md:px-8 md:py-2 bg-green-600 hover:bg-green-700 text-white font-bold rounded shadow-md text-sm md:text-base transition flex items-center justify-center active:bg-green-800">
+                                <button onClick={handleSaveAndNext} className="px-6 py-3 sm:px-8 sm:py-2.5 bg-[#28a745] hover:bg-[#218838] text-white font-bold rounded shadow-md text-sm sm:text-base transition flex items-center justify-center active:bg-[#1e7e34]">
                                     Save & Next
                                 </button>
                             </div>
                         </div>
 
-                        {/* Mobile Backdrop for Palette */}
-                        <div 
-                            className={`mobile-backdrop ${showMobilePalette ? 'mobile-backdrop-open' : ''} md:hidden`}
-                            onClick={() => setShowMobilePalette(false)}
-                        ></div>
+                        {/* Mobile Overlay Backdrop */}
+                        {showMobilePalette && (
+                            <div className="fixed inset-0 bg-black/60 z-40 md:hidden transition-opacity" onClick={() => setShowMobilePalette(false)}></div>
+                        )}
 
-                        {}
-                        <div className={`w-full md:w-80 flex flex-col bg-white md:m-2 md:ml-0 rounded-t-2xl md:rounded-lg border-t md:border border-gray-300 overflow-hidden shrink-0 mobile-palette-container md:relative md:transform-none md:shadow-none md:transition-none ${showMobilePalette ? 'mobile-palette-open' : ''}`}>
+                        {/* Right Side: Question Palette */}
+                        <div className={`mobile-palette-container md:relative md:w-[300px] shrink-0 bg-[#eef3f8] border-l border-gray-300 flex flex-col ${showMobilePalette ? 'open' : 'mobile-hide md:flex'}`}>
                             
-                            {/* Mobile Drag Handle */}
-                            <div className="md:hidden w-full flex justify-center pt-4 pb-2 bg-gray-50 cursor-pointer rounded-t-2xl border-b border-gray-200 shrink-0" onClick={() => setShowMobilePalette(false)}>
-                                <div className="w-16 h-1.5 bg-gray-400 rounded-full"></div>
+                            <div className="p-3 bg-[#1f4e79] text-white font-bold flex justify-between items-center md:hidden rounded-t-[20px] shrink-0">
+                                <span>Question Palette</span>
+                                <button onClick={() => setShowMobilePalette(false)} className="p-1.5 hover:bg-white/20 rounded active:bg-white/30 transition-colors"><i data-lucide="x" className="w-5 h-5"></i></button>
                             </div>
 
-                            {/* Legend Area */}
-                            <div className="p-3 md:p-4 bg-gray-50 border-b border-gray-300 shrink-0 shadow-sm z-10">
-                                <div className="grid grid-cols-2 gap-x-2 gap-y-2 md:gap-y-3 text-[10px] md:text-xs font-semibold text-gray-600">
-                                    <div className="flex items-center gap-2"><div className="w-5 h-5 md:w-6 md:h-6 flex justify-center items-center q-answered shrink-0 text-[10px] md:text-xs"></div> <span className="truncate">Answered ({stats.answered})</span></div>
-                                    <div className="flex items-center gap-2"><div className="w-5 h-5 md:w-6 md:h-6 flex justify-center items-center q-not-answered shrink-0 text-[10px] md:text-xs"></div> <span className="truncate">Not Ans ({stats.not_answered})</span></div>
-                                    <div className="flex items-center gap-2"><div className="w-5 h-5 md:w-6 md:h-6 flex justify-center items-center q-not-visited shrink-0 text-[10px] md:text-xs"></div> <span className="truncate">Not Visit ({stats.not_visited})</span></div>
-                                    <div className="flex items-center gap-2"><div className="w-5 h-5 md:w-6 md:h-6 flex justify-center items-center q-marked shrink-0 text-[10px] md:text-xs"></div> <span className="truncate">Marked ({stats.marked})</span></div>
-                                    <div className="flex items-center gap-2 col-span-2 mt-1"><div className="w-5 h-5 md:w-6 md:h-6 flex justify-center items-center q-answered-marked shrink-0 text-[10px] md:text-xs"></div> <span>Ans & Marked ({stats.answered_marked})</span></div>
+                            <div className="p-3 bg-white border-b border-gray-300 items-center gap-3 shrink-0 hidden md:flex">
+                                <div className="w-12 h-12 bg-gray-200 rounded overflow-hidden flex items-center justify-center shrink-0 border border-gray-300">
+                                    <i data-lucide="user" className="w-8 h-8 text-gray-500"></i>
+                                </div>
+                                <div>
+                                    <div className="font-bold text-gray-800 text-sm">John Doe</div>
+                                    <div className="text-xs text-gray-500">Roll: 1234567890</div>
                                 </div>
                             </div>
-                            
-                            {/* Grid of Question Numbers */}
-                            <div className="flex-1 overflow-y-auto p-4 bg-[#eef2f5]">
-                                <div className="text-sm font-bold text-gray-700 mb-3 border-b border-gray-300 pb-2">Question Palette:</div>
-                                <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-5 gap-2 md:gap-3">
-                                    {QUIZ_DATA.map((_, i) => {
-                                        let btnClass = "w-9 h-9 md:w-10 md:h-10 flex justify-center items-center font-bold text-xs md:text-sm shadow-sm cursor-pointer hover:opacity-80 transition select-none ";
-                                        const stat = statuses[i];
-                                        
-                                        if (stat === 'answered') btnClass += "q-answered";
-                                        else if (stat === 'not_answered') btnClass += "q-not-answered";
-                                        else if (stat === 'marked') btnClass += "q-marked";
-                                        else if (stat === 'answered_marked') btnClass += "q-answered-marked";
-                                        else btnClass += "q-not-visited";
-                                        
-                                        if (i === currentQIndex) {
-                                            btnClass += " ring-2 md:ring-4 ring-blue-400 ring-offset-1 md:ring-offset-1 transform scale-105 z-10";
-                                        }
 
+                            {/* Legend */}
+                            <div className="p-3 grid grid-cols-2 gap-2 text-xs border-b border-gray-300 shrink-0 bg-white">
+                                <div className="flex items-center gap-2"><span className="w-6 h-6 rounded flex items-center justify-center text-white bg-green-600 font-bold">{counts.answered}</span> <span className="leading-tight text-gray-700">Answered</span></div>
+                                <div className="flex items-center gap-2"><span className="w-6 h-6 rounded flex items-center justify-center text-white bg-red-500 font-bold">{counts.not_answered}</span> <span className="leading-tight text-gray-700">Not Answered</span></div>
+                                <div className="flex items-center gap-2"><span className="w-6 h-6 rounded flex items-center justify-center text-gray-700 bg-gray-200 font-bold border border-gray-300">{counts.not_visited}</span> <span className="leading-tight text-gray-700">Not Visited</span></div>
+                                <div className="flex items-center gap-2"><span className="w-6 h-6 rounded flex items-center justify-center text-white bg-purple-600 font-bold">{counts.marked}</span> <span className="leading-tight text-gray-700">Marked</span></div>
+                                <div className="flex items-center gap-2 col-span-2 mt-1">
+                                    <span className="w-6 h-6 rounded flex items-center justify-center text-white bg-purple-600 font-bold relative overflow-hidden">
+                                        {counts.answered_marked}
+                                        <div className="absolute bottom-0 right-0 w-2 h-2 bg-green-400 rounded-tl-full"></div>
+                                    </span> 
+                                    <span className="leading-tight text-gray-700">Answered & Marked for Review</span>
+                                </div>
+                            </div>
+
+                            {/* Palette Buttons Grid */}
+                            <div className="flex-1 overflow-y-auto p-3 bg-[#eef3f8]">
+                                <div className="font-bold text-[#1f4e79] mb-3 pb-1 border-b border-gray-300 text-sm">Teaching & Research Aptitude</div>
+                                <div className="grid grid-cols-5 gap-2 pb-6">
+                                    {questions.map((_, idx) => {
+                                        const status = qStatus[idx];
+                                        const isCurrent = idx === currentQIndex;
+                                        const colorClass = getStatusColor(status);
+                                        
                                         return (
-                                            <div 
-                                                key={i} 
-                                                onClick={() => navigateToQuestion(i)}
-                                                className={btnClass}
-                                                title={`Question ${i+1}`}
+                                            <button 
+                                                key={idx}
+                                                onClick={() => goToQuestion(idx)}
+                                                className={`
+                                                    w-full aspect-square rounded flex items-center justify-center text-sm font-bold border shadow-sm transition-transform active:scale-90
+                                                    ${colorClass}
+                                                    ${isCurrent ? 'ring-2 ring-blue-600 ring-offset-2' : ''}
+                                                `}
                                             >
-                                                {i + 1}
-                                            </div>
+                                                {idx + 1}
+                                                {status === 'answered_marked' && (
+                                                    <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-400 rounded-tl-full"></div>
+                                                )}
+                                            </button>
                                         );
                                     })}
                                 </div>
                             </div>
-                            
-                            {/* Final Submit Area */}
-                            <div className="p-4 bg-white md:bg-gray-100 border-t border-gray-300 shrink-0">
-                                <button 
-                                    onClick={() => { setShowMobilePalette(false); setShowSubmitModal(true); }}
-                                    className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded shadow-lg transition text-base active:bg-blue-800"
-                                >
-                                    Submit Test
+
+                            {/* Final Submit Button */}
+                            <div className="p-3 bg-white border-t border-gray-300 shrink-0 safe-area-pb">
+                                <button onClick={() => {
+                                    if(window.confirm('Are you sure you want to submit the exam? You cannot change answers after submission.')) {
+                                        submitExam();
+                                    }
+                                }} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded shadow transition text-sm active:scale-[0.98]">
+                                    Submit Final Exam
                                 </button>
                             </div>
                         </div>
                     </div>
-
-                    {}
-                    {showSubmitModal && (
-                        <div className="fixed inset-0 bg-black/60 z-[60] flex items-center justify-center backdrop-blur-sm p-4">
-                            <div className="bg-white p-6 rounded-xl shadow-2xl max-w-sm w-full border border-gray-200">
-                                <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                                    <i data-lucide="alert-triangle" className="text-red-500 mr-2 w-6 h-6"></i> Confirm Submit
-                                </h3>
-                                <p className="text-base text-gray-600 mb-6 leading-relaxed">
-                                    Are you sure you want to submit the test? You have answered <strong>{stats.answered + stats.answered_marked}</strong> out of {QUIZ_DATA.length} questions. You cannot modify answers after submission.
-                                </p>
-                                
-                                <div className="flex gap-3">
-                                    <button 
-                                        onClick={() => setShowSubmitModal(false)}
-                                        className="flex-1 py-3 bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold rounded-lg transition text-sm md:text-base"
-                                    >
-                                        Cancel
-                                    </button>
-                                    <button 
-                                        onClick={handleSubmitTest}
-                                        className="flex-1 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition shadow-md text-sm md:text-base"
-                                    >
-                                        Submit
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    )}
                 </div>
             );
-        };
+        }
 
-        // Render application
-        ReactDOM.render(<CBTApp />, document.getElementById('root'));
-        
-        // Initialize Lucide icons
-        setTimeout(() => {
-            lucide.createIcons();
-        }, 100);
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
     </script>
 </body>
 </html>
