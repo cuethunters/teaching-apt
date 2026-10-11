@@ -83,29 +83,254 @@
     <script type="text/babel">
         const defaultQuestions = [
             {
-                question: "Which level of teaching relies most heavily on the rote memorization of facts and information without necessarily requiring deep understanding?",
-                options: ["Memory Level", "Understanding Level", "Reflective Level", "Pedagogical Level"],
+                question: "Which level of teaching is primarily focused on the rote memorization of facts?",
+                options: ["Memory Level", "Understanding Level", "Reflective Level", "Autonomous Development Level"],
                 correctAnswer: "Memory Level"
             },
             {
-                question: "In the context of adult learners (Andragogy), which of the following characteristics is most distinct from pedagogy (teaching children)?",
-                options: ["Learners rely completely on the instructor for direction.", "Learning is highly subject-centered rather than problem-centered.", "Internal motivation is a stronger driver than external rewards.", "Learners have little to no lived experience to draw upon."],
-                correctAnswer: "Internal motivation is a stronger driver than external rewards."
+                question: "Who is considered the main proponent of the Understanding Level of teaching?",
+                options: ["Herbart", "Morrison", "Hunt", "Skinner"],
+                correctAnswer: "Morrison"
             },
             {
-                question: "A teacher is conducting a quiz during the course of instruction to monitor student progress and provide immediate feedback. Which type of evaluation is this?",
-                options: ["Summative Evaluation", "Formative Evaluation", "Diagnostic Evaluation", "Placement Evaluation"],
+                question: "Who is considered the main proponent of the Memory Level of teaching?",
+                options: ["Herbart", "Morrison", "Hunt", "Skinner"],
+                correctAnswer: "Herbart"
+            },
+            {
+                question: "Who is considered the main proponent of the Reflective Level of teaching?",
+                options: ["Herbart", "Morrison", "Hunt", "Skinner"],
+                correctAnswer: "Hunt"
+            },
+            {
+                question: "In the revised Bloom's Taxonomy, what is the highest level of the cognitive domain?",
+                options: ["Evaluation", "Synthesis", "Creating", "Analyzing"],
+                correctAnswer: "Creating"
+            },
+            {
+                question: "Which type of evaluation is conducted DURING the course of instruction to monitor student progress?",
+                options: ["Summative Evaluation", "Formative Evaluation", "Placement Evaluation", "Diagnostic Evaluation"],
                 correctAnswer: "Formative Evaluation"
             },
             {
-                question: "Which of the following teaching methods is considered primarily 'Learner-Centered'?",
-                options: ["Lecture Method", "Team Teaching", "Heuristic Method", "Demonstration Method"],
+                question: "Which type of evaluation is typically conducted at the END of an instructional period to assign grades?",
+                options: ["Summative Evaluation", "Formative Evaluation", "Placement Evaluation", "Diagnostic Evaluation"],
+                correctAnswer: "Summative Evaluation"
+            },
+            {
+                question: "An assessment that compares a student's performance against the performance of their peers is called:",
+                options: ["Criterion-Referenced", "Norm-Referenced", "Diagnostic", "Formative"],
+                correctAnswer: "Norm-Referenced"
+            },
+            {
+                question: "An exam where a student must score at least 60% to pass, regardless of how others perform, is an example of:",
+                options: ["Criterion-Referenced", "Norm-Referenced", "Diagnostic", "Summative"],
+                correctAnswer: "Criterion-Referenced"
+            },
+            {
+                question: "Under the Choice Based Credit System (CBCS), a mandatory course that is foundational to a discipline is called:",
+                options: ["Elective Course", "Core Course", "Ability Enhancement Course", "Skill Enhancement Course"],
+                correctAnswer: "Core Course"
+            },
+            {
+                question: "Under the CBCS, a course that a student chooses from a pool of courses based on their interest is an:",
+                options: ["Elective Course", "Core Course", "Foundation Course", "Compulsory Course"],
+                correctAnswer: "Elective Course"
+            },
+            {
+                question: "Which teaching method, introduced by H.E. Armstrong, focuses on inquiry-based problem solving where the student acts as a discoverer?",
+                options: ["Project Method", "Heuristic Method", "Lecture Method", "Demonstration Method"],
                 correctAnswer: "Heuristic Method"
             },
             {
-                question: "Under the Choice Based Credit System (CBCS) in Indian higher education, which type of course is considered mandatory and foundational for all students in a specific discipline?",
-                options: ["Elective Course", "Core Course", "Ability Enhancement Course", "Skill Enhancement Course"],
-                correctAnswer: "Core Course"
+                question: "The study of how adults learn, characterized by self-directed and problem-centered learning, is called:",
+                options: ["Pedagogy", "Andragogy", "Heutagogy", "Anthropology"],
+                correctAnswer: "Andragogy"
+            },
+            {
+                question: "The traditional approach to teaching children, where the teacher directs what, when, and how a subject is learned, is:",
+                options: ["Pedagogy", "Andragogy", "Heutagogy", "Sociology"],
+                correctAnswer: "Pedagogy"
+            },
+            {
+                question: "The concept of the 'Zone of Proximal Development' (ZPD) was introduced by:",
+                options: ["Jean Piaget", "Lev Vygotsky", "B.F. Skinner", "John Dewey"],
+                correctAnswer: "Lev Vygotsky"
+            },
+            {
+                question: "Which learning theory posits that learners actively build their own knowledge rather than passively receiving it?",
+                options: ["Behaviorism", "Constructivism", "Connectivism", "Humanism"],
+                correctAnswer: "Constructivism"
+            },
+            {
+                question: "A specific learning disability that affects a person's ability to read and process language is:",
+                options: ["Dyslexia", "Dyscalculia", "Dysgraphia", "Dyspraxia"],
+                correctAnswer: "Dyslexia"
+            },
+            {
+                question: "A learning difficulty specifically related to mathematical calculations and numbers is known as:",
+                options: ["Dyslexia", "Dyscalculia", "Dysgraphia", "Aphasia"],
+                correctAnswer: "Dyscalculia"
+            },
+            {
+                question: "A learning disability that affects writing abilities, handwriting, and fine motor skills is:",
+                options: ["Dyslexia", "Dyscalculia", "Dysgraphia", "Dyspraxia"],
+                correctAnswer: "Dysgraphia"
+            },
+            {
+                question: "According to Edgar Dale's Cone of Experience, which instructional method provides the highest retention?",
+                options: ["Reading text", "Watching a video", "Direct, purposeful experience", "Listening to a lecture"],
+                correctAnswer: "Direct, purposeful experience"
+            },
+            {
+                question: "According to Edgar Dale's Cone of Experience, which method yields the lowest rate of retention?",
+                options: ["Reading/Verbal Symbols", "Field trips", "Dramatic participation", "Demonstrations"],
+                correctAnswer: "Reading/Verbal Symbols"
+            },
+            {
+                question: "What does SWAYAM stand for?",
+                options: ["Study Webs of Active-Learning for Young Aspiring Minds", "Study World of Active-Learning for Youth and Minds", "Student Webs of Academic Learning for Young Minds", "Study Webs of Advanced Learning for Young Aspiring Minds"],
+                correctAnswer: "Study Webs of Active-Learning for Young Aspiring Minds"
+            },
+            {
+                question: "The SWAYAM platform is organized into how many 'quadrants' of learning approach?",
+                options: ["Two", "Three", "Four", "Five"],
+                correctAnswer: "Four"
+            },
+            {
+                question: "Which national coordinator is primarily responsible for engineering and technology courses on SWAYAM?",
+                options: ["UGC", "NCERT", "NPTEL", "IGNOU"],
+                correctAnswer: "NPTEL"
+            },
+            {
+                question: "SWAYAM PRABHA is a group of DTH channels devoted to telecasting educational programs. How many channels are currently part of it? (As per recent standard exams)",
+                options: ["32 channels", "34 channels", "40 channels", "80 channels"],
+                correctAnswer: "40 channels"
+            },
+            {
+                question: "What is the full form of MOOC?",
+                options: ["Massive Open Online Course", "Multiple Online Open Course", "Massive Offline Open Course", "Modern Open Online Course"],
+                correctAnswer: "Massive Open Online Course"
+            },
+            {
+                question: "An instructional strategy where students watch lecture videos at home and do 'homework' (problem-solving) in class is called:",
+                options: ["Traditional Classroom", "Flipped Classroom", "Blended Classroom", "Virtual Classroom"],
+                correctAnswer: "Flipped Classroom"
+            },
+            {
+                question: "In Bloom's Taxonomy, the Cognitive Domain primarily deals with:",
+                options: ["Emotions and attitudes", "Physical skills", "Knowledge and intellectual abilities", "Social interactions"],
+                correctAnswer: "Knowledge and intellectual abilities"
+            },
+            {
+                question: "In Bloom's Taxonomy, the Affective Domain primarily deals with:",
+                options: ["Intellectual abilities", "Feelings, values, and attitudes", "Manual and physical skills", "Memory retention"],
+                correctAnswer: "Feelings, values, and attitudes"
+            },
+            {
+                question: "In Bloom's Taxonomy, the Psychomotor Domain primarily deals with:",
+                options: ["Knowledge recall", "Emotional growth", "Physical movement and motor skills", "Critical thinking"],
+                correctAnswer: "Physical movement and motor skills"
+            },
+            {
+                question: "In the standard Indian model of Micro-teaching, what is the total duration of a complete cycle?",
+                options: ["20 minutes", "36 minutes", "45 minutes", "60 minutes"],
+                correctAnswer: "36 minutes"
+            },
+            {
+                question: "What is the primary focus of Micro-teaching?",
+                options: ["Teaching a large syllabus", "Evaluating student knowledge", "Mastering a specific teaching skill", "Classroom management of 50 students"],
+                correctAnswer: "Mastering a specific teaching skill"
+            },
+            {
+                question: "Which of the following is the best example of a Formative Assessment?",
+                options: ["Annual board exam", "University semester final", "Interactive class quiz during a lecture", "Standardized entrance test"],
+                correctAnswer: "Interactive class quiz during a lecture"
+            },
+            {
+                question: "Which of the following is the best example of a Summative Assessment?",
+                options: ["Weekly pop quiz", "End-of-year final examination", "Peer feedback on a draft", "Teacher asking oral questions in class"],
+                correctAnswer: "End-of-year final examination"
+            },
+            {
+                question: "Who is recognized as the originator of the 'Project Method' of teaching?",
+                options: ["John Dewey", "William Heard Kilpatrick", "Friedrich Froebel", "Maria Montessori"],
+                correctAnswer: "William Heard Kilpatrick"
+            },
+            {
+                question: "The Theory of Multiple Intelligences was proposed by:",
+                options: ["Jean Piaget", "Sigmund Freud", "Howard Gardner", "Alfred Binet"],
+                correctAnswer: "Howard Gardner"
+            },
+            {
+                question: "Which psychologist is most famously associated with the theory of 'Operant Conditioning'?",
+                options: ["Ivan Pavlov", "B.F. Skinner", "Albert Bandura", "Carl Rogers"],
+                correctAnswer: "B.F. Skinner"
+            },
+            {
+                question: "Which psychologist is famously associated with the theory of 'Classical Conditioning'?",
+                options: ["Ivan Pavlov", "B.F. Skinner", "John Watson", "Edward Thorndike"],
+                correctAnswer: "Ivan Pavlov"
+            },
+            {
+                question: "The concept of 'Meaningful Verbal Learning' and advance organizers was proposed by:",
+                options: ["David Ausubel", "Jerome Bruner", "Lev Vygotsky", "Jean Piaget"],
+                correctAnswer: "David Ausubel"
+            },
+            {
+                question: "Who developed the 'Brainstorming' technique for creative problem solving?",
+                options: ["Alex Osborn", "Edward de Bono", "David Kolb", "Benjamin Bloom"],
+                correctAnswer: "Alex Osborn"
+            },
+            {
+                question: "An approach where two or more teachers collaboratively plan, instruct, and evaluate a group of students is known as:",
+                options: ["Micro-teaching", "Team Teaching", "Remedial Teaching", "Peer Tutoring"],
+                correctAnswer: "Team Teaching"
+            },
+            {
+                question: "Which type of evaluation is specifically designed to uncover underlying learning difficulties or misconceptions?",
+                options: ["Placement Evaluation", "Diagnostic Evaluation", "Formative Evaluation", "Summative Evaluation"],
+                correctAnswer: "Diagnostic Evaluation"
+            },
+            {
+                question: "An entrance exam to determine a student's prerequisite knowledge before starting a course is an example of:",
+                options: ["Diagnostic Evaluation", "Placement Evaluation", "Formative Evaluation", "Summative Evaluation"],
+                correctAnswer: "Placement Evaluation"
+            },
+            {
+                question: "Communication that does not occur in real-time, such as email or discussion boards, is called:",
+                options: ["Synchronous Communication", "Asynchronous Communication", "Verbal Communication", "Non-verbal Communication"],
+                correctAnswer: "Asynchronous Communication"
+            },
+            {
+                question: "A live Zoom class where students and teachers interact in real-time is an example of:",
+                options: ["Synchronous Communication", "Asynchronous Communication", "Static Communication", "Passive Communication"],
+                correctAnswer: "Synchronous Communication"
+            },
+            {
+                question: "Which of the following teaching methods is considered primarily 'Learner-Centered'?",
+                options: ["Lecture Method", "Demonstration by teacher", "Project Work", "Team Teaching"],
+                correctAnswer: "Project Work"
+            },
+            {
+                question: "Which of the following teaching methods is considered primarily 'Teacher-Centered'?",
+                options: ["Lecture Method", "Heuristic Method", "Role Playing", "Group Discussion"],
+                correctAnswer: "Lecture Method"
+            },
+            {
+                question: "An educational program that combines traditional face-to-face classroom methods with online digital media is known as:",
+                options: ["Distance Education", "Blended Learning", "Correspondence Course", "Homeschooling"],
+                correctAnswer: "Blended Learning"
+            },
+            {
+                question: "Continuous and Comprehensive Evaluation (CCE) was designed to assess:",
+                options: ["Only the scholastic abilities of students", "Both scholastic and co-scholastic aspects of a student's growth", "Only the physical fitness of students", "The teaching effectiveness of the faculty"],
+                correctAnswer: "Both scholastic and co-scholastic aspects of a student's growth"
+            },
+            {
+                question: "In which of the following teaching methods is the maximum participation of students possible?",
+                options: ["Lecture Method", "Textbook Method", "Audio-Visual Method", "Discussion Method"],
+                correctAnswer: "Discussion Method"
             }
         ];
 
@@ -121,27 +346,8 @@
             const [qStatus, setQStatus] = React.useState([]);
 
             React.useEffect(() => {
-                fetch('ugc_net_full_mock.json')
-                    .then(res => res.ok ? res.json() : Promise.reject('Fallback'))
-                    .then(data => {
-                        const loadedQuestions = data.answeredQuestions ? data.answeredQuestions : (data.questions || data);
-                        const cleanQuestions = loadedQuestions.map(q => {
-                            if (q.options) return q;
-                            return {
-                                question: q.question,
-                                correctAnswer: q.correctAnswer,
-                                options: [q.correctAnswer, "Option B", "Option C", "Option D"].sort(() => Math.random() - 0.5)
-                            }
-                        });
-                        
-                        setQuestions(cleanQuestions);
-                        setQStatus(new Array(cleanQuestions.length).fill('not_visited'));
-                    })
-                    .catch(err => {
-                        console.warn("Could not load external JSON, using default questions.");
-                        setQuestions(defaultQuestions);
-                        setQStatus(new Array(defaultQuestions.length).fill('not_visited'));
-                    });
+                setQuestions(defaultQuestions);
+                setQStatus(new Array(defaultQuestions.length).fill('not_visited'));
                     
                 setTimeout(() => {
                     if (window.lucide) window.lucide.createIcons();
