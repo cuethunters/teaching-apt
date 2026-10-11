@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; overflow: hidden; }
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; overflow: hidden; margin: 0; padding: 0;}
         .cbt-shadow { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -34,19 +34,21 @@
                 bottom: 0; 
                 left: 0; 
                 right: 0; 
-                height: 50vh; 
-                z-index: 40; 
+                height: 60vh; /* Increased height for better usability on mobile */
+                z-index: 50; /* Ensure it's above everything */
                 background: white;
                 transform: translateY(100%);
                 transition: transform 0.3s ease-in-out;
-                box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
+                box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+                display: flex;
+                flex-direction: column;
             }
             .mobile-palette-open { transform: translateY(0); }
             .mobile-backdrop {
                 position: fixed;
                 inset: 0;
                 background: rgba(0,0,0,0.5);
-                z-index: 30;
+                z-index: 40;
                 display: none;
             }
             .mobile-backdrop-open { display: block; }
@@ -234,18 +236,18 @@
 
             if (gameState === 'INSTRUCTIONS') {
                 return (
-                    <div className="h-screen flex flex-col bg-white overflow-y-auto">
-                        <div className="bg-blue-900 text-white p-4 shadow-md flex justify-between items-center">
-                            <h1 className="text-xl md:text-2xl font-bold truncate">NTA UGC NET Simulator</h1>
-                            <span className="font-semibold text-blue-200 text-sm md:text-base whitespace-nowrap ml-2">Sys: C001</span>
+                    <div className="h-screen flex flex-col bg-white overflow-y-auto w-full">
+                        <div className="bg-blue-900 text-white p-3 md:p-4 shadow-md flex justify-between items-center w-full">
+                            <h1 className="text-lg md:text-2xl font-bold truncate">NTA UGC NET Simulator</h1>
+                            <span className="font-semibold text-blue-200 text-xs md:text-sm whitespace-nowrap ml-2">Sys: C001</span>
                         </div>
-                        <div className="max-w-4xl mx-auto p-4 md:p-8 flex-grow">
-                            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4 md:mb-6 border-b pb-4">General Instructions</h2>
-                            <div className="text-gray-700 space-y-4 mb-8 text-sm md:text-base">
+                        <div className="w-full max-w-4xl mx-auto p-4 md:p-8 flex-grow">
+                            <h2 className="text-xl md:text-3xl font-bold text-gray-800 mb-4 md:mb-6 border-b pb-2 md:pb-4">General Instructions</h2>
+                            <div className="text-gray-700 space-y-3 md:space-y-4 mb-6 md:mb-8 text-sm md:text-base">
                                 <p><strong>1.</strong> The clock has been set at the server and the countdown timer will display the time remaining for you to complete the exam.</p>
                                 <p><strong>2.</strong> The Question Palette displayed on the right side (or bottom on mobile) of screen will show the status of each question using one of the following symbols:</p>
                                 
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-gray-50 p-4 md:p-6 rounded-lg border border-gray-200 text-sm">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 bg-gray-50 p-4 md:p-6 rounded-lg border border-gray-200 text-sm">
                                     <div className="flex items-center gap-3"><div className="w-8 h-8 shrink-0 flex items-center justify-center font-bold text-sm q-not-visited">1</div> You have not visited the question yet.</div>
                                     <div className="flex items-center gap-3"><div className="w-8 h-8 shrink-0 flex items-center justify-center font-bold text-sm q-not-answered">2</div> You have not answered the question.</div>
                                     <div className="flex items-center gap-3"><div className="w-8 h-8 shrink-0 flex items-center justify-center font-bold text-sm q-answered">3</div> You have answered the question.</div>
@@ -254,7 +256,7 @@
                                 </div>
                                 
                                 <p className="font-bold text-red-600 mt-4">Exam Structure:</p>
-                                <ul className="list-disc pl-6 space-y-1">
+                                <ul className="list-disc pl-5 md:pl-6 space-y-1">
                                     <li>Paper 1: General Paper on Teaching & Research Aptitude</li>
                                     <li>Total Questions: 50</li>
                                     <li>Marks per Question: +2</li>
@@ -262,8 +264,8 @@
                                 </ul>
                             </div>
                             
-                            <div className="flex justify-center border-t pt-6 pb-8">
-                                <button onClick={() => setGameState('EXAM')} className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-12 rounded shadow-lg transition transform hover:scale-105 active:scale-95">
+                            <div className="flex justify-center border-t pt-4 md:pt-6 pb-8">
+                                <button onClick={() => setGameState('EXAM')} className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 md:px-12 rounded shadow-lg transition transform hover:scale-105 active:scale-95 text-sm md:text-base">
                                     I am ready to begin
                                 </button>
                             </div>
@@ -285,56 +287,56 @@
                 });
 
                 return (
-                    <div className="h-screen bg-gray-50 flex flex-col overflow-y-auto">
-                        <div className="bg-blue-900 text-white p-4 md:p-6 shadow-md text-center">
-                            <h1 className="text-2xl md:text-3xl font-bold">Score Card & Analysis</h1>
-                            <p className="text-blue-200 mt-1 md:mt-2 text-sm md:text-base">UGC NET Paper 1 Mock Simulator</p>
+                    <div className="h-screen bg-gray-50 flex flex-col overflow-y-auto w-full">
+                        <div className="bg-blue-900 text-white p-4 md:p-6 shadow-md text-center w-full shrink-0">
+                            <h1 className="text-xl md:text-3xl font-bold">Score Card & Analysis</h1>
+                            <p className="text-blue-200 mt-1 text-xs md:text-base">UGC NET Paper 1 Mock Simulator</p>
                         </div>
                         
-                        <div className="max-w-5xl mx-auto w-full p-4 md:p-6 space-y-6">
+                        <div className="w-full max-w-5xl mx-auto p-4 md:p-6 space-y-4 md:space-y-6">
                             {/* Stats Cards */}
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-                                <div className="bg-white rounded-xl shadow p-4 md:p-6 border-l-4 border-blue-500 text-center">
-                                    <div className="text-gray-500 text-xs md:text-sm font-semibold uppercase">Total Score</div>
-                                    <div className="text-3xl md:text-4xl font-black text-blue-600 mt-2">{score} <span className="text-lg md:text-xl text-gray-400">/ 100</span></div>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
+                                <div className="bg-white rounded-xl shadow p-3 md:p-6 border-l-4 border-blue-500 text-center">
+                                    <div className="text-gray-500 text-[10px] md:text-sm font-semibold uppercase">Total Score</div>
+                                    <div className="text-2xl md:text-4xl font-black text-blue-600 mt-1 md:mt-2">{score} <span className="text-sm md:text-xl text-gray-400">/ 100</span></div>
                                 </div>
-                                <div className="bg-white rounded-xl shadow p-4 md:p-6 border-l-4 border-green-500 text-center">
-                                    <div className="text-gray-500 text-xs md:text-sm font-semibold uppercase">Correct</div>
-                                    <div className="text-3xl md:text-4xl font-black text-green-500 mt-2">{correct}</div>
+                                <div className="bg-white rounded-xl shadow p-3 md:p-6 border-l-4 border-green-500 text-center">
+                                    <div className="text-gray-500 text-[10px] md:text-sm font-semibold uppercase">Correct</div>
+                                    <div className="text-2xl md:text-4xl font-black text-green-500 mt-1 md:mt-2">{correct}</div>
                                 </div>
-                                <div className="bg-white rounded-xl shadow p-4 md:p-6 border-l-4 border-red-500 text-center">
-                                    <div className="text-gray-500 text-xs md:text-sm font-semibold uppercase">Incorrect</div>
-                                    <div className="text-3xl md:text-4xl font-black text-red-500 mt-2">{incorrect}</div>
+                                <div className="bg-white rounded-xl shadow p-3 md:p-6 border-l-4 border-red-500 text-center">
+                                    <div className="text-gray-500 text-[10px] md:text-sm font-semibold uppercase">Incorrect</div>
+                                    <div className="text-2xl md:text-4xl font-black text-red-500 mt-1 md:mt-2">{incorrect}</div>
                                 </div>
-                                <div className="bg-white rounded-xl shadow p-4 md:p-6 border-l-4 border-gray-400 text-center">
-                                    <div className="text-gray-500 text-xs md:text-sm font-semibold uppercase">Unattempted</div>
-                                    <div className="text-3xl md:text-4xl font-black text-gray-600 mt-2">{unattempted}</div>
+                                <div className="bg-white rounded-xl shadow p-3 md:p-6 border-l-4 border-gray-400 text-center">
+                                    <div className="text-gray-500 text-[10px] md:text-sm font-semibold uppercase">Unattempted</div>
+                                    <div className="text-2xl md:text-4xl font-black text-gray-600 mt-1 md:mt-2">{unattempted}</div>
                                 </div>
                             </div>
 
                             {/* Detailed Solutions */}
-                            <h2 className="text-xl md:text-2xl font-bold text-gray-800 border-b pb-2 mt-6 md:mt-8">Detailed Solutions</h2>
-                            <div className="space-y-4 md:space-y-6 pb-8">
+                            <h2 className="text-lg md:text-2xl font-bold text-gray-800 border-b pb-2 mt-4 md:mt-8">Detailed Solutions</h2>
+                            <div className="space-y-4 pb-8">
                                 {QUIZ_DATA.map((q, i) => {
                                     const isCorrect = answers[i] === q.correctAnswer;
                                     const isAttempted = answers[i] !== undefined;
                                     
                                     return (
                                         <div key={q.id} className={`bg-white rounded-lg shadow-sm border ${isAttempted ? (isCorrect ? 'border-green-300' : 'border-red-300') : 'border-gray-300'} overflow-hidden`}>
-                                            <div className={`px-3 py-2 md:px-4 flex justify-between items-center text-xs md:text-sm font-bold text-white ${isAttempted ? (isCorrect ? 'bg-green-600' : 'bg-red-600') : 'bg-gray-500'}`}>
+                                            <div className={`px-2 py-1.5 md:px-4 md:py-2 flex justify-between items-center text-[10px] md:text-sm font-bold text-white ${isAttempted ? (isCorrect ? 'bg-green-600' : 'bg-red-600') : 'bg-gray-500'}`}>
                                                 <span className="truncate mr-2">Q{i + 1} | {q.unit}</span>
                                                 <span className="whitespace-nowrap">{isAttempted ? (isCorrect ? '+2 Marks' : '0 Marks') : 'Not Attempted'}</span>
                                             </div>
-                                            <div className="p-4 md:p-5">
-                                                <p className="font-semibold text-gray-800 mb-4 whitespace-pre-wrap text-sm md:text-base">{q.question}</p>
-                                                <div className="space-y-2 mb-4">
+                                            <div className="p-3 md:p-5">
+                                                <p className="font-semibold text-gray-800 mb-3 md:mb-4 whitespace-pre-wrap text-sm md:text-base">{q.question}</p>
+                                                <div className="space-y-2 mb-3 md:mb-4">
                                                     {q.options.map((opt, optIdx) => (
-                                                        <div key={optIdx} className={`px-3 py-2 md:px-4 rounded border text-xs md:text-sm ${optIdx === q.correctAnswer ? 'bg-green-100 border-green-500 text-green-900 font-semibold' : (answers[i] === optIdx ? 'bg-red-100 border-red-500 text-red-900 line-through' : 'bg-gray-50 border-gray-200 text-gray-600')}`}>
+                                                        <div key={optIdx} className={`px-2 py-1.5 md:px-4 md:py-2 rounded border text-xs md:text-sm ${optIdx === q.correctAnswer ? 'bg-green-100 border-green-500 text-green-900 font-semibold' : (answers[i] === optIdx ? 'bg-red-100 border-red-500 text-red-900 line-through' : 'bg-gray-50 border-gray-200 text-gray-600')}`}>
                                                             {String.fromCharCode(65 + optIdx)}. {opt}
                                                         </div>
                                                     ))}
                                                 </div>
-                                                <div className="bg-blue-50 border border-blue-200 rounded p-3 md:p-4 text-xs md:text-sm text-blue-900">
+                                                <div className="bg-blue-50 border border-blue-200 rounded p-2 md:p-4 text-xs md:text-sm text-blue-900">
                                                     <strong>Explanation:</strong> {q.explanation}
                                                 </div>
                                             </div>
@@ -351,64 +353,64 @@
             const stats = getStats();
 
             return (
-                <div className="h-screen flex flex-col bg-[#eef2f5] relative">
+                <div className="h-screen w-full flex flex-col bg-[#eef2f5] relative overflow-hidden">
                     {/* Top Header */}
-                    <div className="bg-[#1e40af] text-white px-2 py-2 md:px-4 flex justify-between items-center shrink-0">
-                        <div className="font-bold text-sm md:text-lg truncate">UGC NET JRF - Paper 1 Simulator</div>
+                    <div className="bg-[#1e40af] text-white px-3 py-2 md:px-4 flex justify-between items-center shrink-0 w-full">
+                        <div className="font-bold text-xs md:text-lg truncate">UGC NET JRF - Paper 1 Simulator</div>
                         <button 
-                            className="md:hidden flex items-center bg-blue-800 px-2 py-1 rounded text-xs"
+                            className="md:hidden flex items-center bg-blue-800 px-2 py-1 rounded text-xs font-semibold shadow-sm border border-blue-700 active:bg-blue-900"
                             onClick={() => setShowMobilePalette(!showMobilePalette)}
                         >
-                            <i data-lucide="grid" className="w-4 h-4 mr-1"></i> Palette
+                            <i data-lucide="grid" className="w-3 h-3 md:w-4 md:h-4 mr-1"></i> Palette
                         </button>
                     </div>
                     
                     {/* Sub Header */}
-                    <div className="bg-white border-b border-gray-300 px-2 py-2 md:px-4 flex justify-between items-center shrink-0 cbt-shadow z-10">
+                    <div className="bg-white border-b border-gray-300 px-2 py-1.5 md:px-4 md:py-2 flex justify-between items-center shrink-0 cbt-shadow z-10 w-full">
                         <div className="flex items-center gap-2 md:gap-4">
                             <div className="bg-gray-200 rounded-full w-8 h-8 md:w-12 md:h-12 flex items-center justify-center text-gray-500 font-bold border-2 border-gray-300 text-xs md:text-base shrink-0">C</div>
-                            <div className="hidden sm:block">
-                                <div className="text-xs md:text-sm font-semibold text-gray-600">Candidate Name:</div>
-                                <div className="font-bold text-blue-900 text-sm md:text-base">John Doe</div>
+                            <div className="block">
+                                <div className="text-[10px] md:text-sm font-semibold text-gray-600 hidden sm:block">Candidate Name:</div>
+                                <div className="font-bold text-blue-900 text-xs md:text-base truncate max-w-[120px] sm:max-w-none">John Doe</div>
                             </div>
                         </div>
-                        <div className="flex items-center gap-2 md:gap-3">
-                            <div className="text-xs md:text-sm font-semibold text-gray-600 hidden sm:block">Time Left:</div>
-                            <div className={`font-mono text-lg md:text-2xl font-bold px-2 py-1 md:px-3 md:py-1 rounded bg-gray-100 border ${timeLeft < 300 ? 'text-red-600 border-red-300 animate-pulse' : 'text-gray-800 border-gray-300'}`}>
+                        <div className="flex items-center gap-1 md:gap-3">
+                            <div className="text-[10px] md:text-sm font-semibold text-gray-600 hidden sm:block">Time Left:</div>
+                            <div className={`font-mono text-sm md:text-2xl font-bold px-2 py-0.5 md:px-3 md:py-1 rounded bg-gray-100 border ${timeLeft < 300 ? 'text-red-600 border-red-300 animate-pulse' : 'text-gray-800 border-gray-300'}`}>
                                 {formatTime(timeLeft)}
                             </div>
                         </div>
                     </div>
 
                     {/* Main Content Area */}
-                    <div className="flex flex-1 overflow-hidden relative">
+                    <div className="flex flex-1 overflow-hidden relative w-full">
                         
                         {/* Left Side: Question Area */}
-                        <div className="flex-1 flex flex-col bg-white md:m-2 rounded-lg border-t border-b md:border border-gray-300 overflow-hidden relative mobile-full-width">
+                        <div className="flex-1 flex flex-col bg-white md:m-2 rounded-lg border-t border-b md:border border-gray-300 overflow-hidden relative mobile-full-width h-full">
                             {/* Section Header */}
-                            <div className="bg-gray-100 border-b border-gray-300 p-2 flex justify-between items-center text-xs md:text-sm font-bold text-gray-700">
+                            <div className="bg-gray-100 border-b border-gray-300 p-2 md:p-3 flex justify-between items-center text-[10px] md:text-sm font-bold text-gray-700 shrink-0">
                                 <div className="truncate mr-2">Section: Paper 1 ({currentQ.unit})</div>
-                                <div className="bg-blue-100 text-blue-800 px-2 py-0.5 rounded whitespace-nowrap">Q. {currentQIndex + 1} / {QUIZ_DATA.length}</div>
+                                <div className="bg-blue-100 text-blue-800 px-1.5 py-0.5 md:px-2 md:py-1 rounded whitespace-nowrap">Q. {currentQIndex + 1} / {QUIZ_DATA.length}</div>
                             </div>
                             
                             {/* Question Content */}
-                            <div className="flex-1 overflow-y-auto p-4 md:p-6 pb-24 md:pb-6">
+                            <div className="flex-1 overflow-y-auto p-3 md:p-6 pb-20 md:pb-6">
                                 <div className="flex mb-4 md:mb-6 text-gray-800">
-                                    <span className="font-bold mr-2 md:mr-3 text-base md:text-lg">{currentQIndex + 1}.</span>
-                                    <div className="text-base md:text-lg font-medium whitespace-pre-wrap">{currentQ.question}</div>
+                                    <span className="font-bold mr-2 md:mr-3 text-sm md:text-lg shrink-0">{currentQIndex + 1}.</span>
+                                    <div className="text-sm md:text-lg font-medium whitespace-pre-wrap">{currentQ.question}</div>
                                 </div>
                                 
-                                <div className="space-y-3 md:space-y-4 ml-6 md:ml-8">
+                                <div className="space-y-2 md:space-y-4 ml-4 md:ml-8">
                                     {currentQ.options.map((opt, idx) => (
-                                        <label key={idx} className="flex items-start gap-3 cursor-pointer p-2 md:p-3 hover:bg-gray-50 rounded border border-transparent hover:border-gray-200 transition-colors">
+                                        <label key={idx} className="flex items-start gap-2 md:gap-3 cursor-pointer p-2 md:p-3 bg-gray-50 md:bg-transparent hover:bg-gray-100 md:hover:bg-gray-50 rounded border border-gray-200 md:border-transparent md:hover:border-gray-200 transition-colors w-full">
                                             <input 
                                                 type="radio" 
                                                 name="option" 
-                                                className="mt-1 w-4 h-4 md:w-5 md:h-5 text-blue-600 cursor-pointer shrink-0"
+                                                className="mt-0.5 md:mt-1 w-4 h-4 md:w-5 md:h-5 text-blue-600 cursor-pointer shrink-0"
                                                 checked={answers[currentQIndex] === idx}
                                                 onChange={() => handleSelectOption(idx)}
                                             />
-                                            <span className="text-sm md:text-base text-gray-700 font-medium">
+                                            <span className="text-xs md:text-base text-gray-700 font-medium leading-tight md:leading-normal">
                                                 {idx + 1}. {opt}
                                             </span>
                                         </label>
@@ -417,18 +419,20 @@
                             </div>
 
                             {/* Action Buttons Footer */}
-                            <div className="absolute bottom-0 left-0 right-0 md:relative bg-gray-100 border-t border-gray-300 p-2 md:p-3 flex justify-between items-center shrink-0 z-10">
+                            <div className="absolute bottom-0 left-0 right-0 md:relative bg-gray-100 border-t border-gray-300 p-2 md:p-3 flex justify-between items-center shrink-0 z-10 w-full shadow-[0_-2px_5px_rgba(0,0,0,0.05)] md:shadow-none">
                                 <div className="flex gap-1 md:gap-2">
-                                    <button onClick={handleMarkForReview} className="px-2 md:px-4 py-2 border border-gray-400 bg-white hover:bg-gray-50 text-gray-700 font-semibold rounded text-xs md:text-sm transition flex flex-col md:flex-row items-center justify-center">
-                                        <span className="md:hidden"><i data-lucide="bookmark" className="w-4 h-4"></i></span>
+                                    <button onClick={handleMarkForReview} className="px-2 py-1.5 md:px-4 md:py-2 border border-gray-400 bg-white hover:bg-gray-50 text-gray-700 font-semibold rounded text-[10px] md:text-sm transition flex flex-col md:flex-row items-center justify-center min-w-[60px] md:min-w-0">
+                                        <span className="md:hidden mb-0.5"><i data-lucide="bookmark" className="w-3.5 h-3.5"></i></span>
                                         <span className="hidden md:inline">Mark & Next</span>
+                                        <span className="md:hidden text-center leading-tight">Mark<br/>& Next</span>
                                     </button>
-                                    <button onClick={handleClearResponse} className="px-2 md:px-4 py-2 border border-gray-400 bg-white hover:bg-gray-50 text-gray-700 font-semibold rounded text-xs md:text-sm transition flex flex-col md:flex-row items-center justify-center">
-                                        <span className="md:hidden"><i data-lucide="eraser" className="w-4 h-4"></i></span>
+                                    <button onClick={handleClearResponse} className="px-2 py-1.5 md:px-4 md:py-2 border border-gray-400 bg-white hover:bg-gray-50 text-gray-700 font-semibold rounded text-[10px] md:text-sm transition flex flex-col md:flex-row items-center justify-center min-w-[60px] md:min-w-0">
+                                        <span className="md:hidden mb-0.5"><i data-lucide="eraser" className="w-3.5 h-3.5"></i></span>
                                         <span className="hidden md:inline">Clear</span>
+                                        <span className="md:hidden text-center leading-tight">Clear</span>
                                     </button>
                                 </div>
-                                <button onClick={handleSaveAndNext} className="px-4 md:px-6 py-2 bg-green-600 hover:bg-green-700 text-white font-bold rounded shadow text-xs md:text-sm transition flex items-center justify-center">
+                                <button onClick={handleSaveAndNext} className="px-3 py-1.5 md:px-6 md:py-2 bg-green-600 hover:bg-green-700 text-white font-bold rounded shadow text-xs md:text-sm transition flex items-center justify-center ml-1">
                                     Save & Next
                                 </button>
                             </div>
@@ -441,30 +445,31 @@
                         ></div>
 
                         {/* Right Side: Palette & Submission (Desktop & Mobile Panel) */}
-                        <div className={`w-80 flex flex-col bg-white md:m-2 md:ml-0 rounded-t-xl md:rounded-lg border-t md:border border-gray-300 overflow-hidden shrink-0 mobile-palette-container md:relative md:transform-none md:shadow-none md:transition-none ${showMobilePalette ? 'mobile-palette-open' : ''}`}>
+                        <div className={`w-full md:w-80 flex flex-col bg-white md:m-2 md:ml-0 rounded-t-2xl md:rounded-lg border-t md:border border-gray-300 overflow-hidden shrink-0 mobile-palette-container md:relative md:transform-none md:shadow-none md:transition-none ${showMobilePalette ? 'mobile-palette-open' : ''}`}>
                             
+                            {}
                             {/* Mobile Palette Header (Drag handle area) */}
-                            <div className="md:hidden w-full flex justify-center pt-2 pb-1 bg-gray-50 cursor-pointer" onClick={() => setShowMobilePalette(false)}>
-                                <div className="w-12 h-1.5 bg-gray-300 rounded-full"></div>
+                            <div className="md:hidden w-full flex justify-center pt-3 pb-2 bg-gray-50 cursor-pointer rounded-t-2xl border-b border-gray-200 shrink-0" onClick={() => setShowMobilePalette(false)}>
+                                <div className="w-12 h-1.5 bg-gray-400 rounded-full"></div>
                             </div>
 
                             {/* Palette Legend */}
                             <div className="p-2 md:p-3 bg-gray-50 border-b border-gray-300 shrink-0">
                                 <div className="grid grid-cols-2 gap-x-2 gap-y-1.5 md:gap-y-2 text-[10px] md:text-xs font-semibold text-gray-600">
-                                    <div className="flex items-center gap-1 md:gap-2"><div className="w-5 h-5 md:w-6 md:h-6 flex justify-center items-center q-answered shrink-0"></div> <span className="truncate">Answered ({stats.answered})</span></div>
-                                    <div className="flex items-center gap-1 md:gap-2"><div className="w-5 h-5 md:w-6 md:h-6 flex justify-center items-center q-not-answered shrink-0"></div> <span className="truncate">Not Ans ({stats.not_answered})</span></div>
-                                    <div className="flex items-center gap-1 md:gap-2"><div className="w-5 h-5 md:w-6 md:h-6 flex justify-center items-center q-not-visited shrink-0"></div> <span className="truncate">Not Visit ({stats.not_visited})</span></div>
-                                    <div className="flex items-center gap-1 md:gap-2"><div className="w-5 h-5 md:w-6 md:h-6 flex justify-center items-center q-marked shrink-0"></div> <span className="truncate">Marked ({stats.marked})</span></div>
-                                    <div className="flex items-center gap-1 md:gap-2 col-span-2 mt-0.5 md:mt-1"><div className="w-5 h-5 md:w-6 md:h-6 flex justify-center items-center q-answered-marked shrink-0"></div> <span>Ans & Marked ({stats.answered_marked})</span></div>
+                                    <div className="flex items-center gap-1.5 md:gap-2"><div className="w-4 h-4 md:w-6 md:h-6 flex justify-center items-center q-answered shrink-0 text-[8px] md:text-xs"></div> <span className="truncate">Answered ({stats.answered})</span></div>
+                                    <div className="flex items-center gap-1.5 md:gap-2"><div className="w-4 h-4 md:w-6 md:h-6 flex justify-center items-center q-not-answered shrink-0 text-[8px] md:text-xs"></div> <span className="truncate">Not Ans ({stats.not_answered})</span></div>
+                                    <div className="flex items-center gap-1.5 md:gap-2"><div className="w-4 h-4 md:w-6 md:h-6 flex justify-center items-center q-not-visited shrink-0 text-[8px] md:text-xs"></div> <span className="truncate">Not Visit ({stats.not_visited})</span></div>
+                                    <div className="flex items-center gap-1.5 md:gap-2"><div className="w-4 h-4 md:w-6 md:h-6 flex justify-center items-center q-marked shrink-0 text-[8px] md:text-xs"></div> <span className="truncate">Marked ({stats.marked})</span></div>
+                                    <div className="flex items-center gap-1.5 md:gap-2 col-span-2 mt-0.5 md:mt-1"><div className="w-4 h-4 md:w-6 md:h-6 flex justify-center items-center q-answered-marked shrink-0 text-[8px] md:text-xs"></div> <span>Ans & Marked ({stats.answered_marked})</span></div>
                                 </div>
                             </div>
                             
                             {/* Palette Grid */}
                             <div className="flex-1 overflow-y-auto p-3 md:p-4 bg-[#eef2f5]">
                                 <div className="text-xs md:text-sm font-bold text-gray-700 mb-2 md:mb-3 border-b border-gray-300 pb-1">Question Palette:</div>
-                                <div className="grid grid-cols-6 sm:grid-cols-5 md:grid-cols-5 gap-2 md:gap-3">
+                                <div className="grid grid-cols-7 sm:grid-cols-6 md:grid-cols-5 gap-1.5 md:gap-3">
                                     {QUIZ_DATA.map((_, i) => {
-                                        let btnClass = "w-8 h-8 md:w-10 md:h-10 flex justify-center items-center font-bold text-xs md:text-sm shadow-sm cursor-pointer hover:opacity-80 transition ";
+                                        let btnClass = "w-7 h-7 md:w-10 md:h-10 flex justify-center items-center font-bold text-[10px] md:text-sm shadow-sm cursor-pointer hover:opacity-80 transition ";
                                         const stat = statuses[i];
                                         
                                         if (stat === 'answered') btnClass += "q-answered";
@@ -475,7 +480,7 @@
                                         
                                         // Highlight current active question
                                         if (i === currentQIndex) {
-                                            btnClass += " ring-4 ring-blue-400 ring-offset-1";
+                                            btnClass += " ring-2 md:ring-4 ring-blue-400 ring-offset-1 md:ring-offset-1";
                                         }
 
                                         return (
@@ -493,10 +498,10 @@
                             </div>
                             
                             {/* Submit Button */}
-                            <div className="p-3 md:p-4 bg-gray-100 border-t border-gray-300 shrink-0">
+                            <div className="p-3 md:p-4 bg-white md:bg-gray-100 border-t border-gray-300 shrink-0 pb-6 md:pb-4">
                                 <button 
                                     onClick={() => { setShowMobilePalette(false); setShowSubmitModal(true); }}
-                                    className="w-full py-2.5 md:py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded shadow-md transition text-sm md:text-base"
+                                    className="w-full py-2.5 md:py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded shadow-md transition text-sm md:text-base active:bg-blue-800"
                                 >
                                     Submit Test
                                 </button>
@@ -506,21 +511,21 @@
 
                     {/* Submit Confirmation Modal */}
                     {showSubmitModal && (
-                        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center backdrop-blur-sm p-4">
-                            <div className="bg-white p-5 md:p-6 rounded-xl shadow-2xl max-w-md w-full border border-gray-200">
+                        <div className="fixed inset-0 bg-black/60 z-[60] flex items-center justify-center backdrop-blur-sm p-4">
+                            <div className="bg-white p-5 md:p-6 rounded-xl shadow-2xl max-w-sm md:max-w-md w-full border border-gray-200">
                                 <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-3 md:mb-4 flex items-center"><i data-lucide="alert-circle" className="text-blue-500 mr-2 w-5 h-5 md:w-6 md:h-6"></i> Submit Assessment</h3>
                                 <p className="text-sm md:text-base text-gray-600 mb-5 md:mb-6">Are you sure you want to submit the test? You will not be able to modify your answers after submission.</p>
                                 
-                                <div className="flex gap-3 md:gap-4">
+                                <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
                                     <button 
                                         onClick={() => setShowSubmitModal(false)}
-                                        className="flex-1 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold rounded transition text-sm md:text-base"
+                                        className="flex-1 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold rounded transition text-sm md:text-base w-full"
                                     >
                                         Cancel
                                     </button>
                                     <button 
                                         onClick={handleSubmitTest}
-                                        className="flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded transition shadow text-sm md:text-base"
+                                        className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded transition shadow text-sm md:text-base w-full"
                                     >
                                         Confirm Submit
                                     </button>
