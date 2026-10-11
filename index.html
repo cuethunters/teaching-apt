@@ -425,8 +425,8 @@
                                 </div>
                             </div>
                             
-                            {/* Question and Options Area */}
-                            <div className="flex-1 overflow-y-auto p-4 md:p-6 pb-24 md:pb-6">
+                            <!-- Question and Options Area -->
+                            <div className="flex-1 overflow-y-auto p-4 md:p-6 pb-28 md:pb-6">
                                 <div className="flex mb-5 md:mb-6 text-gray-800">
                                     <span className="font-bold mr-3 text-base md:text-lg shrink-0">{currentQIndex + 1}.</span>
                                     <div className="text-base md:text-lg font-medium whitespace-pre-wrap leading-relaxed">{currentQ.question}</div>
@@ -450,8 +450,8 @@
                                 </div>
                             </div>
 
-                            {/* Action Buttons (Footer) */}
-                            <div className="absolute bottom-0 left-0 right-0 md:relative bg-gray-100 border-t border-gray-300 p-3 md:p-4 flex justify-between items-center shrink-0 z-10 w-full shadow-[0_-4px_10px_rgba(0,0,0,0.05)] md:shadow-none">
+                            <!-- Action Buttons (Footer) -->
+                            <div className="absolute bottom-0 left-0 right-0 md:relative bg-gray-100 border-t border-gray-300 p-4 flex justify-between items-center shrink-0 z-10 w-full shadow-[0_-4px_10px_rgba(0,0,0,0.05)] md:shadow-none pb-safe">
                                 <div className="flex gap-2">
                                     <button onClick={handleMarkForReview} className="px-3 py-2 md:px-5 md:py-2 border border-gray-400 bg-white hover:bg-gray-50 text-gray-700 font-semibold rounded shadow-sm text-xs md:text-sm transition flex items-center justify-center min-w-[80px] md:min-w-0 active:bg-gray-100">
                                         <span className="md:hidden"><i data-lucide="bookmark" className="w-4 h-4 mr-1"></i></span>
@@ -464,7 +464,7 @@
                                         <span className="md:hidden">Clear</span>
                                     </button>
                                 </div>
-                                <button onClick={handleSaveAndNext} className="px-5 py-2 md:px-8 md:py-2 bg-green-600 hover:bg-green-700 text-white font-bold rounded shadow-md text-sm md:text-base transition flex items-center justify-center active:bg-green-800">
+                                <button onClick={handleSaveAndNext} className="px-6 py-2 md:px-8 md:py-2 bg-green-600 hover:bg-green-700 text-white font-bold rounded shadow-md text-sm md:text-base transition flex items-center justify-center active:bg-green-800">
                                     Save & Next
                                 </button>
                             </div>
