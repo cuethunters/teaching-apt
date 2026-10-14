@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UGC NET Paper 1 Mock Test</title>
+    <title>Teaching Aptitude Mock Test - UGC NET</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?faxaxxmily=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; }
         .scrollbar-hide::-webkit-scrollbar { display: none; }
@@ -23,10 +23,10 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-md">
-                    <i class="fa-solid fa-graduation-cap"></i>
+                    <i class="fa-solid fa-person-chalkboard"></i>
                 </div>
-                <h1 class="font-bold text-xl text-slate-800 hidden sm:block">UGC NET Paper 1 Mock</h1>
-                <h1 class="font-bold text-lg text-slate-800 sm:hidden">Paper 1 Mock</h1>
+                <h1 class="font-bold text-xl text-slate-800 hidden sm:block">Teaching Aptitude Mock</h1>
+                <h1 class="font-bold text-lg text-slate-800 sm:hidden">Teaching Aptitude</h1>
             </div>
             <div id="header-timer-container" class="hidden flex items-center gap-2 bg-slate-100 px-4 py-2 rounded-full border border-slate-200">
                 <i class="fa-regular fa-clock text-indigo-600"></i>
@@ -37,14 +37,13 @@
 
     <main class="flex-grow flex overflow-hidden relative">
         
-        <!-- START SCREEN -->
         <div id="start-screen" class="absolute inset-0 bg-slate-50 flex items-center justify-center z-20 overflow-y-auto p-4">
             <div class="bg-white max-w-2xl w-full rounded-2xl shadow-xl p-8 border border-slate-100">
                 <div class="text-center mb-8">
                     <div class="w-20 h-20 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fa-solid fa-laptop-code text-4xl text-indigo-600"></i>
+                        <i class="fa-solid fa-chalkboard-user text-4xl text-indigo-600"></i>
                     </div>
-                    <h2 class="text-3xl font-bold text-slate-800 mb-2">General Paper 1 (CBT Format)</h2>
+                    <h2 class="text-3xl font-bold text-slate-800 mb-2">Chapter 1: Teaching Aptitude</h2>
                     <p class="text-slate-500">Comprehensive Mock Test for NTA UGC NET JRF</p>
                 </div>
                 
@@ -53,9 +52,9 @@
                         <i class="fa-solid fa-list-check text-indigo-500"></i> Instructions
                     </h3>
                     <ul class="space-y-3 text-sm text-slate-600">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> This test contains <strong>50 multiple-choice questions</strong>.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> This test contains <strong>50 multiple-choice questions</strong> based exclusively on Teaching Aptitude.</li>
                         <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> Total time allotted is <strong>60 minutes</strong>.</li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> Each correct answer awards <strong>2 marks</strong>. There is no negative marking.</li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> Detailed <strong>explanations</strong> will be provided at the end of the test.</li>
                         <li class="flex items-start gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> The test will auto-submit when the timer runs out.</li>
                     </ul>
                 </div>
@@ -66,18 +65,14 @@
             </div>
         </div>
 
-        <!-- QUIZ SCREEN -->
         <div id="quiz-screen" class="hidden w-full h-full flex flex-col md:flex-row">
             
             <!-- Left Side: Question Area -->
             <div class="flex-grow flex flex-col h-full overflow-hidden">
-                
-                <!-- Progress bar -->
                 <div class="h-1 bg-slate-200 w-full">
                     <div id="progress-bar" class="h-full bg-indigo-500 transition-all duration-300 w-0"></div>
                 </div>
 
-                <!-- Question Container -->
                 <div class="flex-grow overflow-y-auto p-4 sm:p-6 lg:p-10 scrollbar-hide">
                     <div class="max-w-4xl mx-auto">
                         <div class="flex justify-between items-center mb-6">
@@ -92,12 +87,11 @@
                         </h2>
 
                         <div id="options-container" class="space-y-4">
-                            <!-- Options will be injected here via JS -->
+                            <!-- Options injected via JS -->
                         </div>
                     </div>
                 </div>
 
-                <!-- Action Footer -->
                 <div class="bg-white border-t border-slate-200 p-4 sm:p-6 flex items-center justify-between shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
                     <button onclick="prevQuestion()" id="btn-prev" class="px-6 py-2.5 rounded-lg border-2 border-slate-200 text-slate-600 font-medium hover:bg-slate-50 hover:border-slate-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
                         <i class="fa-solid fa-angle-left mr-2"></i> Previous
@@ -109,12 +103,10 @@
                 </div>
             </div>
 
-            <!-- Right Side: Navigation Grid -->
             <div class="w-full md:w-80 bg-white border-l border-slate-200 flex flex-col h-64 md:h-full flex-shrink-0 shadow-[-4px_0_15px_-3px_rgba(0,0,0,0.05)] z-10 relative">
                 <div class="p-4 border-b border-slate-200 bg-slate-50 flex justify-between items-center md:block md:bg-white">
                     <h3 class="font-semibold text-slate-700 hidden md:block mb-2">Question Palette</h3>
                     
-                    <!-- Mobile Toggle for Grid -->
                     <button id="mobile-grid-toggle" class="md:hidden flex items-center gap-2 text-indigo-600 font-medium" onclick="toggleMobileGrid()">
                         <i class="fa-solid fa-table-cells"></i> Show Palette
                     </button>
@@ -139,10 +131,8 @@
             </div>
         </div>
 
-        <!-- RESULTS SCREEN -->
         <div id="results-screen" class="hidden absolute inset-0 bg-slate-50 z-30 overflow-y-auto">
             <div class="max-w-4xl mx-auto p-4 sm:p-8">
-                <!-- Score Card -->
                 <div class="bg-white rounded-2xl shadow-xl border border-slate-200 p-8 text-center mb-8 relative overflow-hidden">
                     <div class="absolute top-0 left-0 w-full h-2 bg-indigo-500"></div>
                     <h2 class="text-3xl font-bold text-slate-800 mb-2">Test Completed!</h2>
@@ -182,9 +172,8 @@
                     </div>
                 </div>
 
-                <!-- Review Section -->
                 <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-                    <i class="fa-solid fa-book-open text-indigo-500"></i> Detailed Review
+                    <i class="fa-solid fa-book-open text-indigo-500"></i> Detailed Review & Explanations
                 </h3>
                 <div id="review-container" class="space-y-6">
                     <!-- Review cards injected via JS -->
@@ -198,14 +187,13 @@
             </div>
         </div>
 
-        <!-- Custom Modal for Alerts/Confirms -->
         <div id="custom-modal" class="hidden absolute inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 transform transition-all scale-95 opacity-0" id="modal-content">
                 <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mx-auto mb-4 text-xl">
                     <i class="fa-solid fa-triangle-exclamation"></i>
                 </div>
                 <h3 class="text-xl font-bold text-center text-slate-800 mb-2" id="modal-title">Confirm Submit</h3>
-                <p class="text-center text-slate-500 mb-6" id="modal-desc">Are you sure you want to submit the test? You still have unanswered questions.</p>
+                <p class="text-center text-slate-500 mb-6" id="modal-desc">Are you sure you want to submit the test?</p>
                 <div class="flex gap-3">
                     <button onclick="closeModal()" class="flex-1 py-2.5 rounded-lg border border-slate-300 text-slate-700 font-medium hover:bg-slate-50">Cancel</button>
                     <button onclick="executeSubmit()" class="flex-1 py-2.5 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 shadow-md">Submit Test</button>
@@ -218,261 +206,370 @@
     <script>
         const quizData = [
             {
-                q: "Which level of teaching involves the highest order of thinking skills and relies on the cognitive field theory?",
+                q: "Which level of teaching relies heavily on the 'Stimulus-Response' model of conditioning?",
                 options: ["Memory Level", "Understanding Level", "Reflective Level", "Autonomous Development Level"],
-                ans: 2
+                ans: 0,
+                explanation: "The Memory Level of teaching, advocated by J.F. Herbart, involves rote learning and heavily relies on the stimulus-response conditioning process to memorize facts."
             },
             {
-                q: "According to the revised Bloom's Taxonomy (2001), which cognitive process involves combining parts to make a new whole?",
-                options: ["Analyzing", "Evaluating", "Applying", "Creating"],
-                ans: 3
+                q: "The 'Understanding Level of Teaching' was primarily advocated by:",
+                options: ["J.F. Herbart", "H.C. Morrison", "Hunt", "John Dewey"],
+                ans: 1,
+                explanation: "H.C. Morrison is the main proponent of the Understanding Level of teaching, which emphasizes mastery of the subject and seeing relationships between facts."
             },
             {
-                q: "In the context of adult learning models, what term specifically describes a self-determined learning process where learners are the absolute center?",
-                options: ["Pedagogy", "Andragogy", "Heutagogy", "Peeragogy"],
-                ans: 2
+                q: "Which of the following describes the Reflective Level of teaching?",
+                options: ["Teacher-centric and fact-based", "Subject-centric and mastery-based", "Learner-centric and problem-solving based", "Unstructured and purely memory-oriented"],
+                ans: 2,
+                explanation: "The Reflective Level, advocated by Hunt, is highly learner-centric. It involves a problem-solving approach where students use independent thinking and logic."
             },
             {
-                q: "Which of the following is NOT one of the Four Quadrants of the SWAYAM MOOC platform?",
-                options: ["Video Tutorial", "e-Content", "Web Resources", "e-Certification"],
-                ans: 3
+                q: "In Bloom's Taxonomy of Educational Objectives, which of the following falls under the 'Affective Domain'?",
+                options: ["Analysis", "Valuing", "Manipulation", "Knowledge"],
+                ans: 1,
+                explanation: "The Affective Domain deals with emotions, attitudes, and values. 'Valuing' is a key level within this domain where a student attaches worth to a particular object or behavior."
             },
             {
-                q: "Which evaluation method is conducted during the instructional process to identify learning difficulties and modify teaching strategies?",
-                options: ["Summative Evaluation", "Formative Evaluation", "Placement Evaluation", "Diagnostic Evaluation"],
-                ans: 1
+                q: "Which stage of Piaget's Cognitive Development theory corresponds generally to adolescent learners?",
+                options: ["Sensorimotor Stage", "Pre-operational Stage", "Concrete Operational Stage", "Formal Operational Stage"],
+                ans: 3,
+                explanation: "The Formal Operational Stage (ages 12 and up) corresponds to adolescents. At this stage, learners can think abstractly, logically, and hypothetically."
             },
             {
-                q: "According to Piaget's stages of cognitive development, at what stage do children begin to use abstract logic, reasoning, and hypothetical thinking?",
-                options: ["Sensorimotor", "Preoperational", "Concrete operational", "Formal operational"],
-                ans: 3
+                q: "What is 'Andragogy' in the context of teaching and learning?",
+                options: ["The science of teaching children", "The practice of peer-to-peer learning", "The science and practice of adult learning", "Self-determined, unstructured learning"],
+                ans: 2,
+                explanation: "Andragogy refers to the methods and principles used in adult education, focusing on self-direction, experience, and practical application."
             },
             {
-                q: "In the context of operant conditioning, what describes the removal of an unpleasant stimulus following a correct behavior to increase that behavior?",
-                options: ["Positive Reinforcement", "Negative Reinforcement", "Positive Punishment", "Negative Punishment"],
-                ans: 1
+                q: "A teacher uses a technique where students explore and find out information for themselves rather than being spoon-fed. This method is called:",
+                options: ["Lecture Method", "Heuristic Method", "Demonstration Method", "Historical Method"],
+                ans: 1,
+                explanation: "The Heuristic method, advocated by H.E. Armstrong, requires students to act as independent discoverers to solve problems and find information."
             },
             {
-                q: "Which satellite is utilized by the SWAYAM PRABHA initiative to telecast high-quality educational programs on a 24x7 basis?",
-                options: ["EDUSAT", "INSAT-3DR", "GSAT-15", "GSAT-31"],
-                ans: 2
+                q: "Which of the following evaluation methods is used to determine the 'entry behavior' or prior knowledge of a student?",
+                options: ["Formative Evaluation", "Summative Evaluation", "Placement Evaluation", "Diagnostic Evaluation"],
+                ans: 2,
+                explanation: "Placement evaluation is done before instruction begins to assess a student's prior knowledge or 'entry behavior' to place them in the correct learning environment."
             },
             {
-                q: "In the Edgar Dale Cone of Experience, what activity yields the highest percentage of retention (90%) for learners?",
-                options: ["Reading text", "Watching a demonstration", "Participating in a discussion", "Simulating the real experience"],
-                ans: 3
+                q: "The main objective of 'Diagnostic Evaluation' is to:",
+                options: ["Grade students at the end of the year", "Identify causes of underlying learning difficulties", "Compare a student's performance against peers", "Assess general intelligence"],
+                ans: 1,
+                explanation: "Diagnostic evaluation goes a step further than formative evaluation by seeking the underlying causes of persistent learning difficulties to provide remedial instruction."
             },
             {
-                q: "Which cooperative learning strategy involves assigning students a number, allowing them to discuss a concept in groups, and then calling a specific number to share the group's thoughts?",
-                options: ["Jigsaw", "Think-Pair-Share", "Numbered Heads Together", "Round Robin"],
-                ans: 2
+                q: "A grading system where a student's performance is compared against the performance of other students is known as:",
+                options: ["Criterion-referenced testing", "Norm-referenced testing", "Ipsative assessment", "Formative assessment"],
+                ans: 1,
+                explanation: "Norm-referenced testing compares a student's performance to that of a norm group (their peers), often resulting in percentile ranks."
             },
             {
-                q: "What type of research is primarily concerned with establishing relationships and testing theories in field settings to solve practical problems?",
-                options: ["Fundamental Research", "Applied Research", "Action Research", "Exploratory Research"],
-                ans: 1
+                q: "What does the acronym 'SWAYAM' stand for?",
+                options: ["Study Webs of Active-Learning for Young Aspiring Minds", "Study World of Action and Youth Academic Minds", "Student Web of Active Youth and Aspiring Minds", "Scientific Web of Applied Youth and Aspiring Minds"],
+                ans: 0,
+                explanation: "SWAYAM stands for Study Webs of Active-Learning for Young Aspiring Minds. It is an indigenous IT platform by the GoI to provide the best teaching learning resources."
             },
             {
-                q: "In research methodology, what is the term for a variable that changes as a direct result of the manipulation of another variable?",
-                options: ["Independent Variable", "Dependent Variable", "Extraneous Variable", "Confounding Variable"],
-                ans: 1
+                q: "How many DTH channels are currently provided by the SWAYAM PRABHA initiative? (As per recent expansions)",
+                options: ["22", "32", "34", "40"],
+                ans: 3,
+                explanation: "SWAYAM PRABHA initially had 32/34 channels but has expanded to a group of 40 DTH channels devoted to telecasting high-quality educational programs 24x7."
             },
             {
-                q: "Which of the following describes a 'Type I error' in hypothesis testing?",
-                options: ["Accepting a false null hypothesis", "Rejecting a true null hypothesis", "Accepting a true alternative hypothesis", "Rejecting a false alternative hypothesis"],
-                ans: 1
+                q: "Which quadrant of a MOOC platform deals specifically with online assessment, quizzes, and assignments?",
+                options: ["Quadrant I (Video tutorial)", "Quadrant II (E-content)", "Quadrant III (Web resources)", "Quadrant IV (Self-assessment)"],
+                ans: 3,
+                explanation: "In the 4-quadrant approach of MOOCs (like SWAYAM), Quadrant IV focuses strictly on Self-Assessment through quizzes, tests, and assignments."
             },
             {
-                q: "Which sampling technique involves dividing the population into homogenous segments and then randomly taking a sample from those segments?",
-                options: ["Cluster Sampling", "Systematic Sampling", "Stratified Sampling", "Snowball Sampling"],
-                ans: 2
+                q: "The term 'CBCS' in the context of higher education in India stands for:",
+                options: ["Central Board of Credit Systems", "Choice Based Credit System", "Core Based Course System", "Comprehensive Base for Credit Scoring"],
+                ans: 1,
+                explanation: "CBCS stands for Choice Based Credit System. It allows students to choose courses from prescribed core, elective, or minor/soft skill courses."
             },
             {
-                q: "What type of validity measures how generalizable experimental findings are to the real world or everyday life settings?",
-                options: ["Internal Validity", "Ecological Validity", "Construct Validity", "Content Validity"],
-                ans: 1
+                q: "Which of the following is a characteristic of a 'Formative Evaluation'?",
+                options: ["It is conducted at the end of the term.", "It is strictly for assigning grades.", "It provides continuous feedback during instruction.", "It is used for final placement decisions."],
+                ans: 2,
+                explanation: "Formative evaluation takes place during the teaching-learning process. Its primary goal is to provide continuous feedback to both teacher and student to improve learning."
             },
             {
-                q: "In research ethics, what is the act of interlaying someone else's phrases or text within your own work without proper attribution called?",
-                options: ["Self-Plagiarism", "Accidental Plagiarism", "Mosaic Plagiarism", "Direct Plagiarism"],
-                ans: 2
+                q: "Which teaching maxim suggests that a teacher should start with what students already know and move towards new information?",
+                options: ["Concrete to Abstract", "Simple to Complex", "Known to Unknown", "Particular to General"],
+                ans: 2,
+                explanation: "The maxim 'Known to Unknown' relies on connecting new, unfamiliar concepts with the learner's existing previous knowledge."
             },
             {
-                q: "When writing references, what does the Latin abbreviation 'Ibid.' signify?",
-                options: ["And others", "For example", "In the same place", "Compare with"],
-                ans: 2
+                q: "A teacher sets a passing mark of 40% for an exam. Students who score above 40% pass, regardless of how others perform. This is an example of:",
+                options: ["Norm-referenced testing", "Criterion-referenced testing", "Diagnostic testing", "Aptitude testing"],
+                ans: 1,
+                explanation: "Criterion-referenced testing compares a student's performance against a pre-defined standard or criterion (like a 40% passing mark), rather than against other students."
             },
             {
-                q: "Which non-parametric statistical test is considered the counterpart to the one-way ANOVA for comparing two or more independent groups?",
-                options: ["Mann-Whitney U Test", "Kruskal-Wallis H Test", "Wilcoxon Signed-Rank Test", "Chi-Square Test"],
-                ans: 1
+                q: "In the context of the Cognitive Domain (Bloom's Taxonomy), which cognitive process requires a student to judge the value of material for a given purpose?",
+                options: ["Application", "Analysis", "Synthesis", "Evaluation"],
+                ans: 3,
+                explanation: "Evaluation (or 'Evaluating' in the revised taxonomy) is the highest level of the original cognitive domain, requiring the ability to judge the value or worth of material based on criteria."
             },
             {
-                q: "Which scale of measurement provides an absolute zero point, meaning the complete absence of the characteristic being measured?",
-                options: ["Nominal Scale", "Ordinal Scale", "Interval Scale", "Ratio Scale"],
-                ans: 3
+                q: "Which instructional strategy involves students watching video lectures at home and doing 'homework' or activities in the classroom?",
+                options: ["Blended Learning", "Flipped Classroom", "Programmed Instruction", "Direct Instruction"],
+                ans: 1,
+                explanation: "A Flipped Classroom reverses traditional teaching. Students acquire foundational knowledge at home via videos, and classroom time is used for interactive problem-solving."
             },
             {
-                q: "What kind of academic meeting involves experts delivering addresses on a topic followed by an intensive practical session where students practice new skills?",
-                options: ["Seminar", "Symposium", "Conference", "Workshop"],
-                ans: 3
+                q: "Microteaching is a technique primarily used for:",
+                options: ["Teaching small groups of students effectively", "Teacher training to develop specific teaching skills", "Teaching microscopic concepts in biology", "Evaluating student behavior in small steps"],
+                ans: 1,
+                explanation: "Microteaching is a teacher-training technique where a teacher teaches a brief lesson to a small group to practice and master a specific teaching skill (e.g., questioning, probing)."
             },
             {
-                q: "Which element in the Shannon-Weaver Model of Communication is responsible for converting a message into signals or binary data?",
-                options: ["Source", "Transmitter", "Channel", "Receiver"],
-                ans: 1
+                q: "Which characteristic is highly typical of adult learners compared to adolescent learners?",
+                options: ["High dependence on the teacher", "Learning is subject-centered rather than problem-centered", "High degree of self-direction and intrinsic motivation", "Inability to link new knowledge to past experiences"],
+                ans: 2,
+                explanation: "Adult learners (Andragogy) are typically self-directed, internally motivated, and heavily rely on bringing their prior life experiences into the learning environment."
             },
             {
-                q: "Which type of non-verbal communication refers specifically to the interpretation of body motions, such as facial expressions and gestures?",
-                options: ["Proxemics", "Haptics", "Kinesics", "Chronemics"],
-                ans: 2
+                q: "The 'Jigsaw' method is an example of which type of learning strategy?",
+                options: ["Competitive learning", "Cooperative learning", "Individualized learning", "Teacher-centered learning"],
+                ans: 1,
+                explanation: "Jigsaw is a cooperative learning strategy where students are divided into groups, each becoming an expert on a sub-topic, and then teaching it to their group members."
             },
             {
-                q: "In organizational communication, what is the term for the informal network that often bypasses formal channels to spread gossip and rumors?",
-                options: ["Upward Communication", "Grapevine", "Horizontal Communication", "Diagonal Communication"],
-                ans: 1
+                q: "According to Edgar Dale's Cone of Experience, which learning activity provides the highest retention rate?",
+                options: ["Reading a textbook", "Watching a video demonstration", "Listening to a lecture", "Direct purposeful experiences (Doing/Simulating)"],
+                ans: 3,
+                explanation: "The base of Edgar Dale's Cone of Experience involves direct, purposeful experiences (doing the real thing or simulating it), which yields the highest retention rate."
             },
             {
-                q: "Which communication barrier occurs when individuals from different cultures have disagreements due to the differing denotations or connotations of words?",
-                options: ["Physical Barrier", "Psychological Barrier", "Semantic Barrier", "Organizational Barrier"],
-                ans: 2
+                q: "Which theory of learning suggests that knowledge is not passively received but actively built by the learner through experiences?",
+                options: ["Behaviorism", "Constructivism", "Cognitivism", "Connectivism"],
+                ans: 1,
+                explanation: "Constructivism (advocated by Piaget and Vygotsky) posits that learners actively construct their own understanding and knowledge of the world through experiencing things."
             },
             {
-                q: "According to Edward de Bono's Six Thinking Hats, which hat focuses on gathering data, facts, and identifying missing information?",
-                options: ["Red Hat", "Black Hat", "White Hat", "Green Hat"],
-                ans: 2
-            },
-            
-            {
-                q: "What type of power does a leader possess when subordinates comply based on respect and the desire to emulate the leader as a trusted role model?",
-                options: ["Coercive Power", "Expert Power", "Legitimate Power", "Referent Power"],
-                ans: 3
+                q: "In offline teaching methods, what is a primary limitation compared to online teaching methods?",
+                options: ["Lack of personal touch and teacher-student rapport", "Difficulty in tracking large amounts of automated assessment data", "Inability to teach complex scientific concepts", "Lack of fixed schedules"],
+                ans: 1,
+                explanation: "A major limitation of offline (traditional) teaching compared to online methods is the difficulty in automating assessments and tracking large data sets of student learning analytics."
             },
             {
-                q: "In a 'High-Context Culture', how is communication typically structured?",
-                options: ["Messages are explicit and direct.", "Communication heavily relies on implicit meanings and non-verbal cues.", "Written contracts are preferred over personal relationships.", "Rules and laws dictate all interactions."],
-                ans: 1
+                q: "What does the 'Psychomotor Domain' of educational objectives deal with?",
+                options: ["Intellectual capabilities", "Feelings and emotions", "Physical and motor skills", "Social interactions"],
+                ans: 2,
+                explanation: "The Psychomotor Domain focuses on physical movement, coordination, and the use of motor-skill areas."
             },
             {
-                q: "Which theory suggests that long-term exposure to television shapes a viewer's perception of reality to align with the media's depiction?",
-                options: ["Uses and Gratifications Theory", "Cultivation Theory", "Agenda-Setting Theory", "Spiral of Silence"],
-                ans: 1
+                q: "Which of the following is an example of an 'Extrinsic' motivation factor for a learner?",
+                options: ["Personal curiosity", "Desire to master a subject", "Earning a certificate or reward", "Inner satisfaction"],
+                ans: 2,
+                explanation: "Extrinsic motivation comes from outside the individual, such as grades, certificates, money, or praise, whereas intrinsic motivation comes from within."
             },
             {
-                q: "When an instructor says, 'I don't know if I'm explaining this well, but...', what kind of communication is taking place?",
-                options: ["Phatic communication", "Metacommunication", "Dyadic communication", "Intrapersonal communication"],
-                ans: 1
+                q: "A teacher uses a rubric to grade a student's project. This makes the evaluation more:",
+                options: ["Subjective", "Objective", "Diagnostic", "Norm-referenced"],
+                ans: 1,
+                explanation: "Using a rubric clearly defines criteria for grading, which significantly reduces teacher bias and makes the evaluation much more objective and consistent."
             },
             {
-                q: "Which of the following describes 'Synchronous Communication'?",
-                options: ["An email thread over several days.", "A real-time video conferencing session.", "Posting on a discussion board.", "Watching a pre-recorded lecture."],
-                ans: 1
+                q: "Which teaching aid is considered a 'Projected Visual Aid'?",
+                options: ["Chalkboard", "Overhead Projector (OHP)", "Flannel Board", "Globe"],
+                ans: 1,
+                explanation: "An Overhead Projector (OHP) projects images onto a screen using light and lenses, making it a projected visual aid. The others are non-projected."
             },
             {
-                q: "Find the next number in the series: 2, 6, 12, 20, ?",
-                options: ["24", "28", "30", "32"],
-                ans: 2
+                q: "What is the primary function of the 'National Coordinator' NPTEL within the SWAYAM platform?",
+                options: ["School education", "Management studies", "Engineering and technology courses", "Teacher training"],
+                ans: 2,
+                explanation: "NPTEL (National Programme on Technology Enhanced Learning) is the designated national coordinator on SWAYAM for engineering and technical courses."
             },
             {
-                q: "In a certain code language, if 'FRIEND' is written as 'UIRVMW', how will 'TRADER' be written?",
-                options: ["GIZWVI", "HJBXWJ", "FHYVUH", "IGYXWK"],
-                ans: 0
+                q: "Which of the following is NOT a characteristic of a good test?",
+                options: ["Validity", "Reliability", "Subjectivity", "Usability"],
+                ans: 2,
+                explanation: "A good test must be valid, reliable, and usable. Subjectivity is a flaw; a good test should strive for Objectivity to ensure unbiased scoring."
             },
             {
-                q: "What is the average of the first 50 even natural numbers?",
-                options: ["50", "51", "100", "101"],
-                ans: 1
+                q: "When a test consistently measures what it is intended to measure over time, it is said to have high:",
+                options: ["Validity", "Reliability", "Objectivity", "Difficulty"],
+                ans: 1,
+                explanation: "Reliability refers to the consistency of a test. If a student takes the test multiple times and gets similar scores, the test is reliable."
             },
             {
-                q: "If P can do a piece of work in 20 days and Q can do the same work in 15 days, how many days will they take to complete the work if they work together?",
-                options: ["8.57 days", "10 days", "12.5 days", "17.5 days"],
-                ans: 0
+                q: "In the 'Brainstorming' method, which of the following is strictly avoided during the initial phase?",
+                options: ["Generating wild ideas", "Quantity of ideas", "Combining ideas", "Criticizing or evaluating ideas"],
+                ans: 3,
+                explanation: "In brainstorming, the cardinal rule is 'deferred judgment.' Criticism or evaluation of ideas is strictly prohibited during the initial idea-generation phase."
             },
             {
-                q: "A nurse moved 90m East, turned right and went 20m, then turned right and went 30m. From there, she went 100m North. What is the shortest distance from her starting point to her final position?",
-                options: ["80m", "100m", "110m", "140m"],
-                ans: 1
+                q: "What does 'Heutagogy' refer to?",
+                options: ["Teacher-led instruction", "Self-determined learning", "Peer-assisted learning", "Machine learning"],
+                ans: 1,
+                explanation: "Heutagogy is the study of self-determined learning. It expands on andragogy by making the learner highly autonomous and responsible for their own learning path."
             },
             {
-                q: "If we increase the selling price of an item by $52, a 5% loss is converted into an 8% profit. What is the cost price of the item?",
-                options: ["$350", "$380", "$400", "$420"],
-                ans: 2
+                q: "The concept of 'Zone of Proximal Development' (ZPD) was introduced by:",
+                options: ["Jean Piaget", "B.F. Skinner", "Lev Vygotsky", "Albert Bandura"],
+                ans: 2,
+                explanation: "Lev Vygotsky introduced the ZPD, which represents the difference between what a learner can do without help and what they can achieve with guidance (scaffolding)."
             },
             {
-                q: "Bob and Alice have an age ratio of 5:2. Before 14 years, the ratio of their ages was 4:3. What is the present age of Bob?",
-                options: ["28 years", "35 years", "38 years", "42 years"],
-                ans: 2
+                q: "Which of the following defines the 'Halo Effect' in the context of evaluation?",
+                options: ["A teacher grading based on strict rubrics", "A teacher's overall impression of a student influencing grading on specific traits", "Evaluating a student based solely on memory recall", "A student self-evaluating their performance objectively"],
+                ans: 1,
+                explanation: "The Halo Effect is a cognitive bias where a teacher's general positive or negative impression of a student influences their evaluation of that student's specific academic performance."
             },
             {
-                q: "A man travels from Point A to Point B at a speed of 40 km/hr and returns from B to A at 60 km/hr. What is his average speed for the entire journey?",
-                options: ["48 km/hr", "50 km/hr", "52 km/hr", "54 km/hr"],
-                ans: 0
+                q: "Which learning theory heavily utilizes 'reinforcement' and 'punishment' to shape behavior?",
+                options: ["Cognitivism", "Constructivism", "Behaviorism", "Humanism"],
+                ans: 2,
+                explanation: "Behaviorism, associated with B.F. Skinner and Pavlov, focuses on observable behaviors that are shaped by consequences, namely reinforcement and punishment."
             },
             {
-                q: "What is the number of odd days in 400 years?",
-                options: ["0", "1", "3", "5"],
-                ans: 0
+                q: "In effective teaching, what is 'Probing'?",
+                options: ["Asking questions that require students to go deeper into their initial answers", "Punishing students for incorrect answers", "Lecturing without allowing student input", "Using standardized tests only"],
+                ans: 0,
+                explanation: "Probing is a teaching skill where the teacher asks follow-up questions to help the student clarify, expand, or dig deeper into their initial, often incomplete, answer."
             },
             {
-                q: "In a row of students, Sahil is 12th from the left and Gaurav is 18th from the right. If they interchange their positions, Sahil becomes 25th from the left. What is the total number of persons standing in the row?",
-                options: ["40", "41", "42", "43"],
-                ans: 2
+                q: "The 'Lecture Method' is best suited for:",
+                options: ["Developing higher-order critical thinking", "Teaching practical motor skills", "Imparting a large amount of factual information to a large group quickly", "Fostering cooperative group work"],
+                ans: 2,
+                explanation: "The lecture method is highly efficient for delivering a large volume of factual information to a mass audience in a short period, though it lacks interactivity."
             },
             {
-                q: "In the traditional Square of Opposition, what is the relationship between the universal affirmative (A) and universal negative (E) propositions?",
-                options: ["Contradictory", "Contrary", "Sub-contrary", "Sub-alternation"],
-                ans: 1
+                q: "What is a 'MOOC'?",
+                options: ["Massive Open Online Course", "Multiple Objective Online Curriculum", "Modern Open Online Classroom", "Massive Offline Organized Course"],
+                ans: 0,
+                explanation: "MOOC stands for Massive Open Online Course. These are free web-based distance learning programs designed for large numbers of geographically dispersed students."
             },
             {
-                q: "According to the Nyaya school of Indian Logic, which of the following is NOT accepted as a valid Pramana (source of knowledge)?",
-                options: ["Pratyaksha (Perception)", "Anumana (Inference)", "Upamana (Comparison)", "Arthapatti (Postulation)"],
-                ans: 3
+                q: "Who proposed the 'Social Learning Theory', emphasizing that people learn from one another through observation, imitation, and modeling?",
+                options: ["Carl Rogers", "Albert Bandura", "Ivan Pavlov", "John Watson"],
+                ans: 1,
+                explanation: "Albert Bandura proposed the Social Learning Theory, highlighting the importance of observing and modeling the behaviors, attitudes, and emotional reactions of others."
             },
             {
-                q: "In the process of inference (Anumana), what does 'Hetu' represent?",
-                options: ["The major term", "The minor term", "The middle term", "The conclusion"],
-                ans: 2
+                q: "In the context of curriculum, what is the 'Hidden Curriculum'?",
+                options: ["Subjects that are optional", "Unintended lessons, values, and perspectives that students learn in school", "Topics reserved for gifted students", "The official syllabus provided by the board"],
+                ans: 1,
+                explanation: "The hidden curriculum refers to the unwritten, unofficial, and often unintended lessons, values, and perspectives that students learn while in the school environment."
             },
             {
-                q: "Which informal fallacy involves attacking the person making the argument rather than the argument itself?",
-                options: ["Straw Man", "Ad Hominem", "Red Herring", "Appeal to Ignorance"],
-                ans: 1
+                q: "Which teaching approach places the teacher as a 'facilitator' rather than a 'sage on the stage'?",
+                options: ["Authoritarian teaching", "Didactic teaching", "Learner-centered teaching", "Teacher-centered teaching"],
+                ans: 2,
+                explanation: "In a learner-centered approach (like constructivism), the teacher acts as a guide or facilitator who supports students as they construct their own knowledge."
             },
             {
-                q: "In a categorical syllogism, what is the 'Fallacy of the Undistributed Middle'?",
-                options: ["When the middle term is not distributed in at least one premise.", "When the major term is distributed in the conclusion but not the premise.", "When the minor term is distributed in the conclusion but not the premise.", "When both premises are negative."],
-                ans: 0
+                q: "Which of the following is considered an 'Asynchronous' learning tool?",
+                options: ["Live Zoom Webinar", "Real-time chat room", "Discussion Forum / Message Board", "Skype video call"],
+                ans: 2,
+                explanation: "Asynchronous learning happens on the student's own schedule. Discussion forums allow users to post and reply at different times, unlike live synchronous tools like Zoom."
             },
             {
-                q: "Which type of reasoning arrives at a conclusion by generalizing from specific observations or data (Bottom-up reasoning)?",
-                options: ["Deductive Reasoning", "Inductive Reasoning", "Abductive Reasoning", "Analogical Reasoning"],
-                ans: 1
+                q: "Which cognitive level involves breaking down information into its component parts to understand its structure?",
+                options: ["Application", "Analysis", "Synthesis", "Comprehension"],
+                ans: 1,
+                explanation: "Analysis in Bloom's Taxonomy involves breaking complex concepts down into their constituent parts to understand how they relate to one another."
             },
             {
-                q: "In Indian Logic (Hetvabhasa), what fallacy occurs when the middle term itself disproves the original proposition and proves its contradictory?",
-                options: ["Savyabhichara", "Viruddha", "Satpratipaksha", "Asiddha"],
-                ans: 1
+                q: "What is the primary focus of 'Humanistic' teaching approaches (e.g., Carl Rogers, Abraham Maslow)?",
+                options: ["Strict behavioral conditioning", "Rote memorization of facts", "The holistic development, self-actualization, and emotional well-being of the learner", "Standardized testing and grading"],
+                ans: 2,
+                explanation: "Humanistic approaches emphasize the whole person, focusing on personal growth, self-actualization, self-esteem, and emotional well-being in the learning process."
             },
             {
-                q: "What type of definition assigns a new meaning to a word for the first time or coins a completely new word?",
-                options: ["Lexical Definition", "Precising Definition", "Stipulative Definition", "Persuasive Definition"],
-                ans: 2
+                q: "When a teacher uses examples to establish a general rule, the reasoning approach used is:",
+                options: ["Deductive", "Inductive", "Abductive", "Syllogistic"],
+                ans: 1,
+                explanation: "Inductive reasoning in teaching moves from specific examples to forming a general rule or principle. (Specific to General)."
             },
             {
-                q: "Which ancient Indian philosophical school adopts a consistent dualism of matter (Prakriti) and the eternal spirit (Purusha)?",
-                options: ["Nyaya", "Vaisheshika", "Samkhya", "Vedanta"],
-                ans: 2
+                q: "What is the 'Deductive' approach to teaching?",
+                options: ["Starting with a general rule and applying it to specific examples", "Starting with specific examples and creating a rule", "Learning through trial and error", "Learning exclusively through peer discussion"],
+                ans: 0,
+                explanation: "The deductive approach is 'General to Specific'. The teacher presents a general rule or formula first, and then students apply it to specific problems."
             },
             {
-                q: "If the statement 'All philosophers are professors' is treated as a Type A proposition, what is its valid Obverse?",
-                options: ["No philosophers are professors.", "Some philosophers are professors.", "No philosophers are non-professors.", "Some philosophers are not professors."],
-                ans: 2
+                q: "Which national body in India is responsible for maintaining the standards of higher education?",
+                options: ["NCERT", "UGC", "CBSE", "NCTE"],
+                ans: 1,
+                explanation: "The University Grants Commission (UGC) of India is the statutory body responsible for the coordination, determination, and maintenance of standards of higher education."
+            },
+            {
+                q: "The use of multimedia in teaching is primarily beneficial because it:",
+                options: ["Replaces the need for a teacher", "Appeals to multiple senses and caters to diverse learning styles", "Makes evaluation entirely subjective", "Decreases student interaction"],
+                ans: 1,
+                explanation: "Multimedia uses text, audio, images, animation, and video. This multisensory approach caters to various learning styles (visual, auditory, kinesthetic) enhancing understanding."
+            },
+            {
+                q: "In the context of evaluation, what is a 'Portfolio'?",
+                options: ["A single standardized test score", "A teacher's daily lesson plan", "A purposeful collection of student work that exhibits their efforts, progress, and achievements", "A software tool for grading automatically"],
+                ans: 2,
+                explanation: "A student portfolio is a systematic collection of a student's work over time, providing a holistic view of their progress, skills, and achievements."
+            },
+            {
+                q: "Which principle of teaching emphasizes teaching the whole concept before breaking it down into parts?",
+                options: ["Simple to Complex", "Whole to Part", "Analysis to Synthesis", "Empirical to Rational"],
+                ans: 1,
+                explanation: "Gestalt psychology influences the 'Whole to Part' maxim. It suggests learners understand the overall concept or 'big picture' first before analyzing its individual components."
+            },
+            {
+                q: "A teacher notices a student struggling with reading and provides extra support materials and phonetic exercises. This action is part of:",
+                options: ["Summative evaluation", "Remedial teaching", "Norm-referencing", "Autocratic teaching"],
+                ans: 1,
+                explanation: "Remedial teaching follows diagnostic evaluation. It involves providing targeted support and instruction to correct specific learning difficulties."
+            },
+            {
+                q: "Which of the following best describes an 'Eclectic' approach to teaching?",
+                options: ["Using only one rigid teaching method", "Focusing only on slow learners", "Combining various methods and techniques according to the needs of the learners", "Relying entirely on digital tools"],
+                ans: 2,
+                explanation: "An eclectic approach means the teacher is not bound by a single methodology but creatively blends different teaching methods to suit the learners and the subject matter."
+            },
+            {
+                q: "According to Gagne's Hierarchy of Learning, what is the highest level of learning?",
+                options: ["Signal learning", "Concept learning", "Rule learning", "Problem-solving"],
+                ans: 3,
+                explanation: "Robert Gagne proposed an 8-level hierarchy of learning. At the very top (the most complex) is Problem Solving, which requires the application of previously learned rules."
+            },
+            {
+                q: "Which of the following is a key feature of 'Choice Based Credit System' (CBCS)?",
+                options: ["Fixed curriculum for all students", "Teacher-centric grading", "Flexibility for students to choose inter-disciplinary and skill-based courses", "Elimination of all examinations"],
+                ans: 2,
+                explanation: "The core advantage of CBCS is flexibility. It shifts the focus from teacher-centric to student-centric education, allowing students to choose electives and inter-disciplinary subjects."
+            },
+            {
+                q: "In a traditional classroom, the seating arrangement usually dictates that communication is predominantly:",
+                options: ["Multi-directional", "One-way (Teacher to Student)", "Peer-to-Peer", "Non-verbal only"],
+                ans: 1,
+                explanation: "Traditional row-and-column seating arrangements are designed to focus all attention on the teacher at the front, leading to predominantly one-way, didactic communication."
+            },
+            {
+                q: "Which of the following variables is considered the 'Independent Variable' in the teaching-learning process?",
+                options: ["The Student", "The Teacher", "The Curriculum", "The Classroom Environment"],
+                ans: 1,
+                explanation: "In educational psychology, the Teacher is considered the independent variable as they plan, organize, and manipulate the learning environment. The student is the dependent variable."
+            },
+            {
+                q: "The term 'Pedagogy' literally translates from Greek to mean:",
+                options: ["To lead a child", "To love knowledge", "To measure the mind", "To study nature"],
+                ans: 0,
+                explanation: "Pedagogy is derived from the Greek words 'paidos' (child) and 'agogos' (leader). It literally means 'to lead the child' or the art and science of teaching children."
+            },
+            {
+                q: "Which organization is responsible for coordinating the 'Teacher Training' courses on the SWAYAM platform?",
+                options: ["IGNOU", "NITTTR", "UGC", "AICTE"],
+                ans: 1,
+                explanation: "NITTTR (National Institute of Technical Teachers Training and Research) is the designated National Coordinator for Teacher Training programs on the SWAYAM platform."
             }
         ];
 
         let currentQuestion = 0;
         let userAnswers = new Array(quizData.length).fill(null);
-        let timeLeft = 3600; // 60 minutes in seconds
+        let timeLeft = 3600; // 60 minutes
         let timerInterval;
 
         function init() {
@@ -503,7 +600,6 @@
             const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             document.getElementById('header-timer').innerText = timeString;
 
-            // Warning color when < 5 mins
             if(timeLeft < 300) {
                 document.getElementById('header-timer-container').classList.remove('bg-slate-100', 'border-slate-200');
                 document.getElementById('header-timer-container').classList.add('bg-red-50', 'border-red-200');
@@ -517,15 +613,12 @@
         function renderQuestion(index) {
             const qData = quizData[index];
             
-            // Update UI Counters
             document.getElementById('question-number-badge').innerText = `Question ${index + 1} of ${quizData.length}`;
             document.getElementById('question-text').innerText = qData.q;
             
-            // Progress Bar
             const progressPercentage = ((index + 1) / quizData.length) * 100;
             document.getElementById('progress-bar').style.width = `${progressPercentage}%`;
 
-            // Render Options
             const optionsContainer = document.getElementById('options-container');
             optionsContainer.innerHTML = '';
             
@@ -553,7 +646,6 @@
                 optionsContainer.insertAdjacentHTML('beforeend', optionHtml);
             });
 
-            // Update Navigation Buttons
             document.getElementById('btn-prev').disabled = index === 0;
             const btnNext = document.getElementById('btn-next');
             if (index === quizData.length - 1) {
@@ -571,8 +663,8 @@
 
         function selectOption(qIndex, optIndex) {
             userAnswers[qIndex] = optIndex;
-            renderQuestion(qIndex); // Re-render to show selection
-            updateGridState(); // Update sidebar colors
+            renderQuestion(qIndex);
+            updateGridState();
         }
 
         function nextQuestion() {
@@ -580,10 +672,7 @@
                 currentQuestion++;
                 renderQuestion(currentQuestion);
             } else {
-                // If on last question, scroll to the grid/submit button to prompt submission
-                if(window.innerWidth < 768) {
-                    toggleMobileGrid(true); // Force open mobile grid
-                }
+                if(window.innerWidth < 768) toggleMobileGrid(true);
             }
         }
 
@@ -597,9 +686,7 @@
         function jumpToQuestion(index) {
             currentQuestion = index;
             renderQuestion(currentQuestion);
-            if(window.innerWidth < 768) {
-                toggleMobileGrid(false); // Close mobile grid after selection
-            }
+            if(window.innerWidth < 768) toggleMobileGrid(false);
         }
 
         function renderGrid() {
@@ -626,29 +713,22 @@
         }
 
         function updateGridSelection(index) {
-            // Remove current outline from all
             for (let i = 0; i < quizData.length; i++) {
                 document.getElementById(`grid-btn-${i}`).classList.remove('grid-btn-current');
             }
-            // Add to current
             document.getElementById(`grid-btn-${index}`).classList.add('grid-btn-current');
         }
 
         function toggleMobileGrid(forceState = null) {
             const gridContainer = document.getElementById('grid-container');
-            if(forceState === true) {
-                gridContainer.classList.remove('hidden');
-            } else if (forceState === false) {
-                gridContainer.classList.add('hidden');
-            } else {
-                gridContainer.classList.toggle('hidden');
-            }
+            if(forceState === true) gridContainer.classList.remove('hidden');
+            else if (forceState === false) gridContainer.classList.add('hidden');
+            else gridContainer.classList.toggle('hidden');
         }
 
         function confirmSubmit() {
             const unanswered = userAnswers.filter(a => a === null).length;
             const modal = document.getElementById('custom-modal');
-            const modalContent = document.getElementById('modal-content');
             const desc = document.getElementById('modal-desc');
 
             if (unanswered > 0) {
@@ -658,23 +738,17 @@
             }
 
             modal.classList.remove('hidden');
-            // Trigger animation
             setTimeout(() => {
-                modalContent.classList.remove('scale-95', 'opacity-0');
-                modalContent.classList.add('scale-100', 'opacity-100');
+                document.getElementById('modal-content').classList.remove('scale-95', 'opacity-0');
+                document.getElementById('modal-content').classList.add('scale-100', 'opacity-100');
             }, 10);
         }
 
         function closeModal() {
             const modal = document.getElementById('custom-modal');
-            const modalContent = document.getElementById('modal-content');
-            
-            modalContent.classList.remove('scale-100', 'opacity-100');
-            modalContent.classList.add('scale-95', 'opacity-0');
-            
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 200);
+            document.getElementById('modal-content').classList.remove('scale-100', 'opacity-100');
+            document.getElementById('modal-content').classList.add('scale-95', 'opacity-0');
+            setTimeout(() => modal.classList.add('hidden'), 200);
         }
 
         function executeSubmit() {
@@ -706,7 +780,6 @@
                 else if (isSkipped) skipped++;
                 else incorrect++;
 
-                // Build Review Card
                 let statusBadge = '';
                 let borderClass = '';
                 
@@ -742,6 +815,14 @@
                 });
                 optionsHtml += '</div>';
 
+                // Explanation Block
+                const explanationHtml = `
+                    <div class="mt-4 p-4 bg-indigo-50 border border-indigo-100 rounded-lg text-sm text-indigo-900 shadow-inner">
+                        <span class="font-bold text-indigo-700 block mb-1"><i class="fa-solid fa-lightbulb mr-1"></i> Explanation:</span>
+                        <p class="text-slate-700 leading-relaxed">${qData.explanation}</p>
+                    </div>
+                `;
+
                 const cardHtml = `
                     <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 sm:p-6 ${borderClass}">
                         <div class="flex justify-between items-start mb-3 gap-4">
@@ -749,15 +830,13 @@
                             <div class="flex-shrink-0">${statusBadge}</div>
                         </div>
                         ${optionsHtml}
+                        ${explanationHtml}
                     </div>
                 `;
                 reviewContainer.insertAdjacentHTML('beforeend', cardHtml);
             });
 
-            // Update Scoreboard
             const totalScore = correct * 2;
-            
-            // Animate Score Counter
             animateValue("score-text", 0, totalScore, 1000);
             
             document.getElementById('correct-count').innerText = correct;
@@ -765,7 +844,6 @@
             document.getElementById('skipped-count').innerText = skipped;
         }
 
-        // Helper to animate the score number
         function animateValue(id, start, end, duration) {
             if (start === end) return;
             var range = end - start;
@@ -782,7 +860,6 @@
             }, stepTime);
         }
 
-        // Initialize on load
         window.onload = init;
     </script>
 </body>
